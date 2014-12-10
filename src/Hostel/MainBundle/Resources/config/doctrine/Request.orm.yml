@@ -1,0 +1,34 @@
+Hostel\MainBundle\Entity\Request:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        description:
+            type: text
+        status:
+            type: integer
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+            inversedBy: requests
+        admin:
+            targetEntity: Hostel\MainBundle\Entity\User
+            inversedBy: adminRequests
+
+    oneToMany:
+        comments:
+            targetEntity: Hostel\MainBundle\Entity\Comment
+            mappedBy: request
+
+    lifecycleCallbacks: {  }

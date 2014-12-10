@@ -1,0 +1,25 @@
+Hostel\MainBundle\Entity\Operation:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        amount:
+            type: integer
+        date:
+            type: datetime
+        operationId:
+            type: integer
+        data:
+            type: json_array
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+            inversedBy: paymentRequests
+
+    lifecycleCallbacks: {  }

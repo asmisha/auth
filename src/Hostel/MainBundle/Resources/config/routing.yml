@@ -1,0 +1,33 @@
+index:
+    pattern:  /
+    defaults: { _controller: HostelMainBundle:Default:index }
+
+request:
+    pattern: /request/{id}
+    defaults: { _controller: HostelMainBundle:Default:request }
+
+request_add_comment:
+    pattern: /request/{id}/addComment
+    defaults: { _controller: HostelMainBundle:Default:requestAddComment }
+    methods: [POST]
+
+terms:
+    pattern: /terms
+    defaults: { _controller: HostelMainBundle:Default:terms }
+
+
+registration_success:
+    pattern: /registration_success
+    defaults: { _controller: HostelMainBundle:Default:registrationSuccess }
+
+login:
+    pattern:  /login
+    defaults: { _controller: HostelMainBundle:Default:login }
+
+payConnection:
+    pattern:  /pay/connection
+    defaults: { _controller: HostelMainBundle:Default:pay, connection: true }
+
+pay:
+    pattern:  /pay/{year}/{month}
+    defaults: { _controller: HostelMainBundle:Default:pay }

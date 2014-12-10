@@ -1,0 +1,145 @@
+{% extends 'HostelMainBundle::layout.html.twig' %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#tabs a').click(function (e) {
+				e.preventDefault();
+				window.location.hash = $(this).attr('href');
+				$(this).tab('show')
+			});
+
+			var tab = window.location.hash;
+			if(!tab)
+				tab = '#login';
+
+			$('#tabs a[href=' + tab + ']').tab('show');
+
+		});
+	</script>
+	<script type="text/javascript">
+		(function(){
+			var $collectionHolder;
+
+			// setup an "add a tag" link
+			var $addLink = $('<a href="#" class="add-link">' + 'Add' + '</a>');
+			var $newLinkLi = $('<div></div>').append($addLink);
+
+			jQuery(document).ready(function() {
+				// Get the ul that holds the collection of tags
+				$collectionHolder = $('#hostel_mainbundle_user_passportScans');
+
+//			$collectionHolder.on('click', '.delete', function(e) {
+//				$(this).closest('li').remove();
+//
+//				return false;
+//			});
+
+				// add the "add a tag" anchor and li to the tags ul
+				$collectionHolder.append($newLinkLi);
+
+				// count the current form inputs we have (e.g. 2), use that as the new
+				// index when inserting a new item (e.g. 2)
+				var count = {{ count | default(0) | json_encode | raw }};
+				$collectionHolder.data('index', count ? count : $collectionHolder.find(':input').length);
+
+				$addLink.on('click', function(e) {
+					// prevent the link from creating a "#" on the URL
+					e.preventDefault();
+
+					// add a new tag form (see next code block)
+					addForm($collectionHolder, $newLinkLi);
+				});
+			});
+
+			function addForm($collectionHolder, $newLinkLi) {
+				// Get the data-prototype explained earlier
+				var prototype = $collectionHolder.data('prototype');
+
+				// get the new index
+				var index = $collectionHolder.data('index');
+
+				// Replace '__name__' in the prototype's HTML to
+				// instead be a number based on how many items we have
+				var newForm = prototype.replace(/__name__/g, index);
+
+				// increase the index with one for the next item
+				$collectionHolder.data('index', index + 1);
+
+				var $newFormLi;
+				// Display the form in the page in an li, before the "Add a tag" link li
+				$newFormLi = $('<div></div>').append(newForm);
+
+				$newLinkLi.before($newFormLi);
+			}
+		})()
+	</script>
+	<style>
+		#hostel_mainbundle_user_passportScans label{display: none;}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<ul class="nav nav-tabs" id="tabs">
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<li><a href="#cabinet" data-toggle="tab">{{ 'Личный кабинет'|trans() }}</a></li>
+		{% else %}
+			<li><a href="#login" data-toggle="tab">{{ 'Авторизация'|trans() }}</a></li>
+		{% endif %}
+
+		{% if registerForm %}
+			<li><a href="#register" data-toggle="tab">{{ 'Регистрация'|trans() }}</a></li>
+		{% endif %}
+
+		{% if requestForm %}
+			<li><a href="#request" data-toggle="tab">{{ 'Заявки'|trans() }}</a></li>
+		{% endif %}
+
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<li><a href="/logout">{{ 'Выход'|trans() }}</a></li>
+		{% endif %}
+	</ul>
+
+	<div class="tab-content">
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<div class="tab-pane jumbotron active" id="cabinet">
+					<div class="col-lg-10" style="float: none;margin: 0 auto;">
+						{% include 'HostelMainBundle:Block:cabinet.html.twig' %}
+					</div>
+			</div>
+		{% else %}
+			<div class="tab-pane jumbotron active" id="login">
+				<div class="col-lg-5" style="float: none;margin: 0 auto;">
+					{% include 'HostelMainBundle:Block:loginForm.html.twig' %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if registerForm %}
+			<div class="tab-pane jumbotron" id="register">
+				<div class="row">
+					<div class="col-lg-5" style="float: none;margin: 0 auto;">
+						{{ form_start(registerForm) }}
+						{{ form_row(registerForm.username) }}
+						{{ form_row(registerForm.plainPassword) }}
+						{{ form_end(registerForm) }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		{% if requestForm %}
+			<div class="tab-pane jumbotron" id="request">
+				<div class="row">
+					<table>
+						{% for i in app.user.getRequests %}
+						{% endif %}
+					</table>
+					<div class="col-lg-10" style="float: none;margin: 0 auto;">
+						{{ form(requestForm) }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

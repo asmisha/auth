@@ -1,0 +1,316 @@
+<?php
+
+namespace Hostel\MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Request
+ */
+class Request
+{
+	const STATUS_NEW = 1;
+	const STATUS_OPENED = 2;
+	const STATUS_CLOSED = 3;
+	public static $Statuses = array(
+		self::STATUS_NEW => 'new',
+		self::STATUS_OPENED => 'opened',
+		self::STATUS_CLOSED => 'closed',
+	);
+
+	public function getStatusText(){
+		return @self::$Statuses[$this->status];
+	}
+
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var string
+     */
+    private $hash;
+
+    /**
+     * @var integer
+     */
+    private $status;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Request
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Request
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Request
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
+     * @return Request
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string 
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Request
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    /**
+     * @var string
+     */
+    private $title;
+
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Request
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+	public function __toString(){
+		if($this->id)
+			return sprintf('Заявка #%d', $this->id);
+		else
+			return 'Новая заявка';
+	}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Hostel\MainBundle\Entity\Comment $comments
+     * @return Request
+     */
+    public function addComment(\Hostel\MainBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Hostel\MainBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Hostel\MainBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    /**
+     * @var \Hostel\MainBundle\Entity\User
+     */
+    private $admin;
+
+
+    /**
+     * Set admin
+     *
+     * @param \Hostel\MainBundle\Entity\User $admin
+     * @return Request
+     */
+    public function setAdmin(\Hostel\MainBundle\Entity\User $admin = null)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \Hostel\MainBundle\Entity\User 
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+    /**
+     * @var \Hostel\MainBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \Hostel\MainBundle\Entity\User $user
+     * @return Request
+     */
+    public function setUser(\Hostel\MainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Hostel\MainBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

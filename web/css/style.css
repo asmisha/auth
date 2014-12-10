@@ -1,0 +1,15 @@
+th{ vertical-align: middle !important; }
+.table-condensed td, .table-condensed th {
+	font-size: 12px !important;
+	line-height: 12px !important;
+	padding: 2px !important;
+}
+.table-condensed .btn {
+	font-size: 12px !important;
+	line-height: 12px !important;
+}
+.table-condensed .btn .caret {
+	margin-top: 5px;
+}
+
+.jumbotron {background: none !important;}

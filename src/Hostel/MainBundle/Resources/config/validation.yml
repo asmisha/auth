@@ -1,0 +1,18 @@
+Hostel\MainBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    properties:
+        username:
+            - NotBlank: ~
+        firstname:
+            - NotBlank: ~
+        lastname:
+            - NotBlank: ~
+        hostel:
+            - NotBlank: ~
+        room:
+            - NotBlank: ~
+        groupNumber:
+            - NotBlank: ~
+        enabled:
+            - NotNull: ~

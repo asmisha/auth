@@ -1,0 +1,23 @@
+Hostel\MainBundle\Entity\Comment:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        text:
+            type: text
+        date:
+            type: datetime
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+        request:
+            targetEntity: Hostel\MainBundle\Entity\Request
+            inversedBy: comments
+
+    lifecycleCallbacks: {  }

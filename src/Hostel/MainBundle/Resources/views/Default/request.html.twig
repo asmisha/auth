@@ -1,0 +1,55 @@
+{% extends 'HostelMainBundle::layout.html.twig' %}
+
+{% block content %}
+
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-lg-7">
+				<h3>Заявка №{{ request.id }}</h3>
+				<table class="table table-striped table-bordered">
+					<tr>
+						<td>Дата</td>
+						<td>{{ request.date | date('d.m.Y H:i') }}</td>
+					</tr>
+					<tr>
+						<td>Описание</td>
+						<td>{{ request.title }}</td>
+					</tr>
+					<tr>
+						<td>Полное описание</td>
+						<td>{{ request.description }}</td>
+					</tr>
+					<tr>
+						<td>Ответственный администратор</td>
+						<td>{{ request.admin }}</td>
+					</tr>
+					<tr>
+						<td>Статус</td>
+						<td>{{ ('status.' ~ request.statusText) | trans([], 'Request') }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<h3>Комментарии:</h3>
+		{% for i in request.comments %}
+			<div class="comment">
+				<div class="info">
+					{{ i.user.firstname }} {{ i.user.lastname }},
+					{{ i.date | date('d.m.Y H:i') }}
+				</div>
+				<div class="text">{{ i.text }}</div>
+			</div>
+		{% endfor %}
+
+		<h3>Добавить комментарий:</h3>
+
+		{% form_theme commentForm 'HostelMainBundle:Form:fields.html.twig' %}
+
+		<div class="row" id="form-wrapper">
+			<div class="col-lg-5">
+				{{ form(commentForm, {action: path('request_add_comment', {id: request.id})}) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

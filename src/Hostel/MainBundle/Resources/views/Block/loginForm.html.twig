@@ -1,0 +1,24 @@
+<form action="{{ path('fos_user_security_check') }}" method="post">
+	<input type="hidden" name="_csrf_token" value="{{ getAuthCsrfToken() }}">
+
+	<div class="popup_form">
+		{% set error = getLoginError() %}
+		<p>
+			<input class="form-control" placeholder="Логин" type="text" name="_username" value="{{ getLastLogin() }}">
+		</p>
+
+		<p{% if error %} class="error"{% endif %}>
+			<input class="form-control" placeholder="Пароль" type="password" name="_password">
+		</p>
+		{% if error %}
+			<p class="mobile_error">{{ error|trans({}, 'messages') }}</p>
+		{% endif %}
+
+		<div class="links_login">
+			<input class="btn btn-primary" value="Log in" class="button" type="submit">
+			{#<a href="{{ path('password_recovery') }}" title="">Forgot Password?</a>#}
+
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+</form>

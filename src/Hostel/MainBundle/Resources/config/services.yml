@@ -1,0 +1,47 @@
+parameters:
+
+services:
+    subscriber.default:
+        class: Hostel\MainBundle\Services\DefaultSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    subscriber.user:
+        class: Hostel\MainBundle\Services\UserSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    subscriber.locale:
+        class: Hostel\MainBundle\Services\LocaleSubscriber
+        arguments: [%locale%]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    sonata.admin.request:
+        class: Hostel\MainBundle\Admin\RequestAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Администрирование", label: "Заявки", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
+        arguments:
+            - ~
+            - Hostel\MainBundle\Entity\Request
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminRequest]]
+
+    twig.security_extension:
+        class: Hostel\MainBundle\Services\Twig\SecurityExtension
+        arguments: [@form.csrf_provider, @request_stack]
+        tags:
+            - { name: twig.extension }
+
+    erip:
+        class: Hostel\MainBundle\Services\Erip
+        arguments:
+            - %raschet_ftp_host%
+            - %raschet_ftp_user%
+            - %raschet_ftp_password%
+            - @monolog.logger.erip
+            - @ijanki_ftp
+            - @doctrine.orm.entity_manager

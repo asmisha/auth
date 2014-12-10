@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{{ 'Локальная сеть общежитий БГУИР'|trans }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+	{#<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />#}
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/application.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox.css" />
+	<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if(getParameterByName('error')){
+				bootstrapAlert(getParameterByName('error'), 'danger');
+			}
+		});
+	</script>
+
+	{% block scripts %}
+	{% endblock %}
+</head>
+
+<body>
+
+<div class="container">
+	<div class="page-header">
+		<h1>
+			<div style="float: right">
+				<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({_locale: 'ru'})) }}" title="ru"><img src="/img/flag/Russia.png" alt="ru"></a>
+				<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({_locale: 'en'})) }}" title="en"><img src="/img/flag/United-Kingdom.png" alt="en"></a>
+			</div>
+			{% block page_title %}
+				<a href="/">{{ 'Локальная сеть общежитий БГУИР'|trans }}</a>
+			{% endblock %}
+		</h1>
+	</div>
+
+	{% block content %}
+	{% endblock %}
+</div>
+
+<div id="popup-terms" style="display: none;">Договор</div>
+
+<div id="alert_placeholder"></div>
+
+</body>
+
+</html>

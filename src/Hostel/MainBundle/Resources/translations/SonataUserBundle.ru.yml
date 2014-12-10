@@ -1,0 +1,11 @@
+list.label_id: Id
+list.label_middlename: Отчество
+list.label_firstname: Имя
+list.label_lastname: Фамилия
+list.label_hostel: Общежитие
+list.label_room: Комната
+list.label__action: Действия
+list.label_enabled: Подтвержден
+
+filter.label_enabled: Подтвержден
+filter.label_is_admin: Администратор
