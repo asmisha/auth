@@ -94,8 +94,13 @@ monolog:
             type:     stream
             path:     %kernel.logs_dir%/erip.log
             channels: ["erip"]
+        ban:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.log
+            channels: ["ban"]
     channels:
         - erip
+        - ban
 
 sonata_admin:
     title: Управление заявками
