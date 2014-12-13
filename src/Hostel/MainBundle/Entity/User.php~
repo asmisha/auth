@@ -541,4 +541,32 @@ class User extends BaseUser
     {
         return $this->mac;
     }
+    /**
+     * @var string
+     */
+    private $ip;
+
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return User
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string 
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
 }

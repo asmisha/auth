@@ -38,6 +38,8 @@ Hostel\MainBundle\Entity\User:
             type: string
             length: 20
             nullable: true
+        banned:
+            type: boolean
 
     oneToMany:
         requests:
