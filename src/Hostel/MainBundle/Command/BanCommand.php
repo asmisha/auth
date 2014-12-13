@@ -48,6 +48,8 @@ class BanCommand extends ContainerAwareCommand
 
 			$u->setBanned(!$u->getBanned());
 		}
+
+		$em->flush();
 	}
 
 	private function ban(User $u){
