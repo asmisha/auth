@@ -513,4 +513,32 @@ class User extends BaseUser
     {
         return $this->isAdmin;
     }
+    /**
+     * @var string
+     */
+    private $mac;
+
+
+    /**
+     * Set mac
+     *
+     * @param string $mac
+     * @return User
+     */
+    public function setMac($mac)
+    {
+        $this->mac = $mac;
+
+        return $this;
+    }
+
+    /**
+     * Get mac
+     *
+     * @return string 
+     */
+    public function getMac()
+    {
+        return $this->mac;
+    }
 }
