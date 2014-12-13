@@ -15,7 +15,7 @@ class HandlePaymentRequestsCommand extends ContainerAwareCommand
 	protected function configure()
 	{
 		$this
-			->setName('handlePaymentRequests')
+			->setName('cron:handlePaymentRequests')
 		;
 	}
 
