@@ -57,6 +57,7 @@ doctrine:
         driver:   "%database_driver%"
         host:     "%database_host%"
         port:     "%database_port%"
+        unix_socket: "%database_socket%"
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
