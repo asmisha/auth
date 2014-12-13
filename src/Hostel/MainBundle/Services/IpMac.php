@@ -28,14 +28,14 @@ class IpMac {
 	}
 
 	public function ban(User $u){
-		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getId(), $u->getMac()));
+		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
 //		exec(sprintf('iptables -D allowed_users -s %s/32 -m mac --mac-source %s -j ACCEPT', $u->getIp(), $u->getMac()));
 		exec(sprintf('sudo /usr/sbin/ipset -D ipmacs %s,%s', $u->getIp(), $u->getMac()));
 	}
 
 	public function unban(User $u){
-		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getId(), $u->getMac()));
+		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
 //		exec(sprintf('iptables -A allowed_users -s %s/32 -m mac --mac-source %s -j ACCEPT', $u->getIp(), $u->getMac()));
 		exec(sprintf('sudo /usr/sbin/ipset -A ipmacs %s,%s', $u->getIp(), $u->getMac()));
