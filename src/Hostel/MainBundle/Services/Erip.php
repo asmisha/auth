@@ -65,9 +65,9 @@ class Erip {
 				sprintf('%s %s %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname()), // ФИО
 				sprintf('%s %s %s, Общежитие №%d БГУИР, к. %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname(), $u->getHostel(), $u->getRoom()), // ФИО + адрес
 				'', // период оплаты
-				'0', //
-				'',
-				'',
+				'0', // задолженность
+				'', // счетчики
+				date('YmdHis'), // дата формирования требования об оплате
 				'',
 				'',
 				'',
