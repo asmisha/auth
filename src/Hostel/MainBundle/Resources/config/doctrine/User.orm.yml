@@ -30,6 +30,10 @@ Hostel\MainBundle\Entity\User:
             type: boolean
         isAdmin:
             type: boolean
+        mac:
+            type: string
+            length: 20
+            nullable: true
 
     oneToMany:
         requests:

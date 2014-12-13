@@ -15,6 +15,13 @@ use Symfony\Component\Form\Form;
 
 class DefaultController extends Controller
 {
+	private function getMac($host){
+		$output = array();
+		exec("/usr/sbin/arp -a -n | grep '${host}[^0-9]' | awk '{ print $4 }'", $output);
+		$mac = @$output[0];
+		return $mac;
+	}
+
     public function indexAction(\Symfony\Component\HttpFoundation\Request $httpRequest)
     {
 		if($this->getUser()){
@@ -28,6 +35,9 @@ class DefaultController extends Controller
 			$requestForm = null;
 
 			$user = new User();
+			$mac = $this->getMac($httpRequest->getClientIp());
+			$user->setMac($mac);
+
 			$registerForm = $this->createForm(new UserType(), $user);
 		}
 
