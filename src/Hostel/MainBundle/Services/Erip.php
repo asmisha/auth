@@ -63,7 +63,7 @@ class Erip {
 				'2', // тип сообщения
 				$u->getId(), // номер лицевого счета
 				sprintf('%s %s %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname()), // ФИО
-				sprintf('Общежитие №%d БГУИР, к. %s', $u->getHostel(), $u->getRoom()), // адрес
+				sprintf('%s %s %s, Общежитие №%d БГУИР, к. %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname(), $u->getHostel(), $u->getRoom()), // ФИО + адрес
 				'', // период оплаты
 				'0', //
 				'',
@@ -101,7 +101,7 @@ class Erip {
 
 		$file = sprintf('in/%s.202', date('dmYHis'));
 		$this->logger->info(sprintf('Uploading payment requests to file "%s"', $file));
-		
+
 		$this->ftp->putContents($file, $data, FTP_BINARY);
 	}
 
