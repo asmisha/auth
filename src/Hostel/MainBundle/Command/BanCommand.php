@@ -41,32 +41,14 @@ class BanCommand extends ContainerAwareCommand
 
 		foreach($users as $u){
 			if($u->getBanned()){
-				$this->unban($u);
+				$this->getContainer()->get('ipmac')->unban($u);
 			}else{
-				$this->ban($u);
+				$this->getContainer()->get('ipmac')->ban($u);
 			}
 
 			$u->setBanned(!$u->getBanned());
 		}
 
 		$em->flush();
-	}
-
-	private function ban(User $u){
-		/** @var Logger $logger */
-		$logger = $this->getContainer()->get('monolog.logger.ban');
-		$logger->info(sprintf('Banning user %d %s %s', $u->getId(), $u->getFirstname(), $u->getLastname()));
-
-		exec(sprintf('iptables -D allowed_users -s %s/32 -m mac --mac-source %s -j ACCEPT', $u->getIp(), $u->getMac()));
-		//exec(sprintf('sudo /usr/sbin/ipset -D ipmacs %s,%s', $u->getIp(), $u->getMac()));
-	}
-
-	private function unban(User $u){
-		/** @var Logger $logger */
-		$logger = $this->getContainer()->get('monolog.logger.ban');
-		$logger->info(sprintf('Unbanning user %d %s %s', $u->getId(), $u->getFirstname(), $u->getLastname()));
-
-		exec(sprintf('iptables -A allowed_users -s %s/32 -m mac --mac-source %s -j ACCEPT', $u->getIp(), $u->getMac()));
-		//exec(sprintf('sudo /usr/sbin/ipset -A ipmacs %s,%s', $u->getIp(), $u->getMac()));
 	}
 }

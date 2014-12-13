@@ -45,3 +45,18 @@ services:
             - @monolog.logger.erip
             - @ijanki_ftp
             - @doctrine.orm.entity_manager
+
+    ipmac:
+        class: Hostel\MainBundle\Services\IpMac
+        arguments:
+            - @monolog.logger.ban
+
+    # authentication event listener
+    security.authentication_event_listener:
+        class: Hostel\MainBundle\Services\AuthenticationListener
+        arguments:
+            - @request_stack
+            - @doctrine.orm.entity_manager
+            - @ipmac
+        tags:
+            - { name: kernel.event_subscriber }
