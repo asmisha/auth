@@ -34,6 +34,7 @@ class BanCommand extends ContainerAwareCommand
 			->where('u.banned = true AND p.id IS NOT NULL AND u.connectionPayed = true')
 			->orWhere('u.banned = false AND (p.id IS NULL OR u.connectionPayed = false)')
 			->andWhere('u.mac is not null')
+			->andWhere('u.ip is not null')
 			->getQuery()
 			->getResult()
 		;
@@ -47,6 +48,8 @@ class BanCommand extends ContainerAwareCommand
 
 			$u->setBanned(!$u->getBanned());
 		}
+
+		$em->flush();
 	}
 
 	private function ban(User $u){
@@ -58,6 +61,7 @@ class BanCommand extends ContainerAwareCommand
 
 	private function unban(User $u){
 		/** @var Logger $logger */
+		$logger = $this->getContainer()->get('monolog.logger.ban');
 		$logger->info(sprintf('Unbanning user %d %s %s', $u->getId(), $u->getFirstname(), $u->getLastname()));
 		exec(sprintf('sudo /usr/sbin/ipset -A ipmacs %s,%s', $u->getIp(), $u->getMac()));
 	}
