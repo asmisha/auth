@@ -3,7 +3,6 @@
 namespace Hostel\MainBundle\Form;
 
 use Hostel\MainBundle\Entity\User;
-use Hostel\MainBundle\Form\DataTransformer\FileListToUploadedFileTransform;
 use Hostel\MainBundle\Form\Type\AgreeWithTermsType;
 use Hostel\MainBundle\Form\Type\FileListType;
 use Symfony\Component\Form\AbstractType;
@@ -55,11 +54,12 @@ class UserType extends AbstractType
 			->add('submit', 'submit')
         ;
 
-		$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+		$hideFields = $this->hideFields;
+		$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use($hideFields){
 			$user = $event->getData();
 			$form = $event->getForm();
 
-			if(!in_array('plainPassword', $this->hideFields)){
+			if(!in_array('plainPassword', $hideFields)){
 				$options = array(
 					'first_options'  => array('label' => ($user && $user->getId() ? 'New Password' : 'Password')),
 					'second_options' => array('label' => ($user && $user->getId() ? 'Retype New Password' : 'Retype Password')),
@@ -74,7 +74,7 @@ class UserType extends AbstractType
 				;
 			}
 
-			if(!in_array('password', $this->hideFields) && $user && $user->getId()){
+			if(!in_array('password', $hideFields) && $user && $user->getId()){
 				$form->add('password', 'password', array(
 					'required' => false,
 					'mapped' => false,
