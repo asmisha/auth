@@ -569,4 +569,32 @@ class User extends BaseUser
     {
         return $this->ip;
     }
+    /**
+     * @var boolean
+     */
+    private $banned = true;
+
+
+    /**
+     * Set banned
+     *
+     * @param boolean $banned
+     * @return User
+     */
+    public function setBanned($banned)
+    {
+        $this->banned = $banned;
+
+        return $this;
+    }
+
+    /**
+     * Get banned
+     *
+     * @return boolean 
+     */
+    public function getBanned()
+    {
+        return $this->banned;
+    }
 }

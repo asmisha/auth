@@ -60,6 +60,7 @@ class User extends BaseUser
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->email = $this->emailCanonical = md5(mt_rand().time());
+		$this->enabled = true;
     }
 
     /**
@@ -596,5 +597,33 @@ class User extends BaseUser
     public function getBanned()
     {
         return $this->banned;
+    }
+    /**
+     * @var boolean
+     */
+    private $checked = false;
+
+
+    /**
+     * Set checked
+     *
+     * @param boolean $checked
+     * @return User
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean 
+     */
+    public function getChecked()
+    {
+        return $this->checked;
     }
 }

@@ -7,6 +7,14 @@ parameters:
     database_user:     root
     database_password: ~
 
+    old_database_driver: pdo_mysql
+    old_database_host: 127.0.0.1
+    old_database_port: ~
+    old_database_socket: ~
+    old_database_name: hna
+    old_database_user: root
+    old_database_password: ~
+
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~

@@ -96,7 +96,7 @@
 		{% endif %}
 
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-			<li><a href="/logout">{{ 'Выход'|trans() }}</a></li>
+			<li><a href="{{ path('fos_user_security_logout') }}" onclick="window.location.href = $(this).attr('href'); return false;">{{ 'Выход'|trans() }}</a></li>
 		{% endif %}
 	</ul>
 

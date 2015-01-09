@@ -99,7 +99,7 @@ class Erip {
 		$data = implode("\n", $body);
 		$data = iconv('utf-8', 'cp1251', $data);
 
-		$file = sprintf('in/%s.202', date('dmYHis'));
+		$file = sprintf('in/%s.202', date('YmdHis'));
 		$this->logger->info(sprintf('Uploading payment requests to file "%s"', $file));
 
 		$this->ftp->putContents($file, $data, FTP_BINARY);

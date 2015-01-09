@@ -41,15 +41,6 @@ class UserType extends AbstractType
 			->add('passportScans', new FileListType(), array(
 				'mapped' => false
 			))
-
-//			->add('passportScans', 'sonata_type_collection', array(
-//				// Prevents the "Delete" option from being displayed
-//				'type_options' => array('delete' => false)
-//			), array(
-//				'edit' => 'inline',
-//				'inline' => 'table',
-//				'sortable' => 'position',
-//			))
 			->add('agreeWithTerms', new AgreeWithTermsType())
 			->add('submit', 'submit')
         ;

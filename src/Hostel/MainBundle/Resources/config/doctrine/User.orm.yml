@@ -40,6 +40,8 @@ Hostel\MainBundle\Entity\User:
             nullable: true
         banned:
             type: boolean
+        checked:
+            type: boolean
 
     oneToMany:
         requests:

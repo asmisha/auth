@@ -12,6 +12,7 @@ use Hostel\MainBundle\Form\RequestType;
 use Hostel\MainBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
@@ -62,7 +63,13 @@ class DefaultController extends Controller
 						if($form === $requestForm){
 							return $this->redirect($this->generateUrl('request', array('id' => $form->getData()->getId())));
 						}elseif($form == $registerForm){
-							return $this->redirect($this->generateUrl('registration_success'));
+							/** @var User $user */
+							$user = $form->getData();
+							// authenticate
+							$token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
+							$this->get('security.context')->setToken($token);
+
+							return $this->redirect('/');
 						}
 					}
 				}
