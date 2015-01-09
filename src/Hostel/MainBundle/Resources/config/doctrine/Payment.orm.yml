@@ -21,6 +21,8 @@ Hostel\MainBundle\Entity\Payment:
         user:
             targetEntity: Hostel\MainBundle\Entity\User
             inversedBy: payments
+            joinColumn:
+                onUpdate: "CASCADE"
         createdBy:
             targetEntity: Hostel\MainBundle\Entity\User
     lifecycleCallbacks: {  }
