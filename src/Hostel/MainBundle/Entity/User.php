@@ -384,10 +384,11 @@ class User extends BaseUser
 			$result[$p->getCreatedAt()->format('Y')][$p->getCreatedAt()->format('n')]['payed'] = $p;
 		}
 		foreach($this->getPaymentRequests() as $pr){
-			if($pr->getConnection())
+			if($pr->getConnection()){
 				$result['connection']['paymentRequests'][] = $pr;
-			else
-				$result[$pr->getCreatedAt()->format('Y')][$pr->getCreatedAt()->format('n')]['paymentRequests'][] = $pr;
+			}else{
+				$result[$pr->getYear()][$pr->getMonth()]['paymentRequests'][] = $pr;
+			}
 		}
 
 		return $result;
