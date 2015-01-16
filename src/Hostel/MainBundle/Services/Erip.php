@@ -63,7 +63,7 @@ class Erip {
 				'2', // тип сообщения
 				$u->getId(), // номер лицевого счета
 				sprintf('%s %s %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname()), // ФИО
-				sprintf('%s %s %s, Общежитие №%d БГУИР, к. %s', $u->getFirstname(), $u->getMiddlename(), $u->getLastname(), $u->getHostel(), $u->getRoom()), // ФИО + адрес
+				sprintf('Общежитие №%d БГУИР, к. %s', $u->getHostel(), $u->getRoom()), // адрес
 				'', // период оплаты
 				'0', // задолженность
 				'', // счетчики
