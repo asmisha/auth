@@ -1,6 +1,8 @@
 Hostel\MainBundle\Entity\User:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: username
+            message: 'Этот логин уже используется'
     properties:
         username:
             - NotBlank: ~

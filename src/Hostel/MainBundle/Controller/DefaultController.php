@@ -9,6 +9,7 @@ use Hostel\MainBundle\Entity\Request;
 use Hostel\MainBundle\Entity\User;
 use Hostel\MainBundle\Form\CommentType;
 use Hostel\MainBundle\Form\RequestType;
+use Hostel\MainBundle\Form\SettingsType;
 use Hostel\MainBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -23,10 +24,12 @@ class DefaultController extends Controller
 			$request->setUser($this->getUser());
 
 			$requestForm = $this->createForm(new RequestType(), $request);
+			$settingsForm = $this->createForm(new SettingsType(), $this->getUser());
 
 			$registerForm = null;
 		}else{
 			$requestForm = null;
+			$settingsForm = null;
 
 			$user = new User();
 			$mac = $this->get('ipmac')->getMac($httpRequest->getClientIp());
@@ -37,7 +40,7 @@ class DefaultController extends Controller
 
 		if($httpRequest->getMethod() == 'POST'){
 			/** @var Form[] $forms */
-			$forms = array($requestForm, $registerForm);
+			$forms = array($requestForm, $registerForm, $settingsForm);
 
 			foreach($forms as $form){
 				if($form && $httpRequest->get($form->getName())){
@@ -56,7 +59,6 @@ class DefaultController extends Controller
 						}
 
 						$em = $this->getDoctrine()->getManager();
-
 						$em->persist($form->getData());
 						$em->flush();
 
@@ -70,6 +72,8 @@ class DefaultController extends Controller
 							$this->get('security.context')->setToken($token);
 
 							return $this->redirect('/');
+						}elseif($form == $settingsForm){
+							return $this->redirect('/?success');
 						}
 					}
 				}
@@ -78,7 +82,8 @@ class DefaultController extends Controller
 
         return $this->render('HostelMainBundle:Default:index.html.twig', array(
 			'requestForm' => $requestForm ? $requestForm->createView() : null,
-			'registerForm' => $registerForm ? $registerForm->createView() : null
+			'registerForm' => $registerForm ? $registerForm->createView() : null,
+			'settingsForm' => $settingsForm ? $settingsForm->createView() : null,
 		));
     }
     public function registrationSuccessAction()

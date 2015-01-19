@@ -6,8 +6,9 @@
 Выход: Logout
 Вы были успешно зарегистрированы: You've been registered successfuly
 Ваш номер договора для оплаты в ЕРИП: Your account ID to pay for in ЕРИП system
+Сменить пароль: Change password
 Дата: Date
-Оплата: Payment
+Стоимость: Price
 Заявки на оплату: Payment Requests
 Оплатить: Pay
 Заявка на оплату от %s: Payment Request of %s
@@ -19,3 +20,8 @@
 Недостаточно средств: Insufficient Funds
 Текущий баланс: Current Balance
 Оплачено: Payed
+Сохранено: Saved
+my_account_number: My Account Id (to pay in ЕРИП system)
+Настройки: Settings
+Логин: Username
+Подключение: Connection

@@ -59,7 +59,7 @@ class User extends BaseUser
 
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->email = $this->emailCanonical = md5(mt_rand().time());
+		$this->email = $this->emailCanonical = md5(mt_rand().time()).'@tut.by';
 		$this->enabled = true;
     }
 
@@ -627,4 +627,11 @@ class User extends BaseUser
     {
         return $this->checked;
     }
+
+	public function setPlainPassword($plainPassword){
+		if($plainPassword){
+			parent::setPlainPassword($plainPassword);
+			$this->setUpdatedAt(new \DateTime());
+		}
+	}
 }

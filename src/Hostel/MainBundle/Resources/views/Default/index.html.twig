@@ -10,8 +10,9 @@
 			});
 
 			var tab = window.location.hash;
-			if(!tab)
-				tab = '#login';
+			if(!tab){
+				tab = {{ (app.user ? '#cabinet' : '#login')|json_encode|raw }};
+			}
 
 			$('#tabs a[href=' + tab + ']').tab('show');
 
@@ -87,6 +88,10 @@
 			<li><a href="#login" data-toggle="tab">{{ 'Авторизация'|trans() }}</a></li>
 		{% endif %}
 
+		{% if settingsForm %}
+			<li><a href="#settings" data-toggle="tab">{{ 'Настройки'|trans() }}</a></li>
+		{% endif %}
+
 		{% if registerForm %}
 			<li><a href="#register" data-toggle="tab">{{ 'Регистрация'|trans() }}</a></li>
 		{% endif %}
@@ -103,14 +108,27 @@
 	<div class="tab-content">
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<div class="tab-pane jumbotron active" id="cabinet">
-					<div class="col-lg-10" style="float: none;margin: 0 auto;">
-						{% include 'HostelMainBundle:Block:cabinet.html.twig' %}
-					</div>
+				<div class="col-lg-10" style="float: none;margin: 0 auto;">
+					{% include 'HostelMainBundle:Block:cabinet.html.twig' %}
+				</div>
 			</div>
 		{% else %}
 			<div class="tab-pane jumbotron active" id="login">
 				<div class="col-lg-5" style="float: none;margin: 0 auto;">
 					{% include 'HostelMainBundle:Block:loginForm.html.twig' %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if settingsForm %}
+			<div class="tab-pane jumbotron" id="settings">
+				<div class="row">
+					<div class="col-lg-5" style="float: none;margin: 0 auto;">
+						{{ form(settingsForm) }}
+						{% if app.request.query.has('success') %}
+							<h3>{{ 'Сохранено'|trans }}</h3>
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		{% endif %}

@@ -74,6 +74,8 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
+			->add('username')
+			->add('plainPassword', 'password', array('required' => false))
 			->add('firstname')
 			->add('middlename')
 			->add('lastname')
@@ -89,9 +91,10 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 	{
 		$filterMapper
 			->add('id')
+			->add('username')
 			->add('firstname')
 			->add('lastname')
-			->add('enabled')
+			->add('banned')
 			->add('isAdmin')
 		;
 	}
