@@ -41,7 +41,7 @@ class CorrectRulesCommand extends ContainerAwareCommand
 			}else{
 				$output->writeln(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-				//$ipmac->unban($u);
+				$ipmac->unban($u);
 			}
 		}
 
@@ -51,7 +51,7 @@ class CorrectRulesCommand extends ContainerAwareCommand
 
 				$output->writeln(sprintf('Banning %s %s', $ip, $mac));
 
-				//$ipmac->banIpMac($ip, $mac);
+				$ipmac->banIpMac($ip, $mac);
 			}
 		}
 
