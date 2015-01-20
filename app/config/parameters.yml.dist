@@ -40,6 +40,6 @@ parameters:
     raschet_currency_code: 974
 
     raschet_ftp_host: localhost
-    raschet_ftp_user: asmisha
-    raschet_ftp_password: cfvjrbk
+    raschet_ftp_user: ~
+    raschet_ftp_password: ~
     raschet_ftp_upload_dir: tmp/in
