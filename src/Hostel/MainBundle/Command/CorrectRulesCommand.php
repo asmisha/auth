@@ -35,13 +35,13 @@ class CorrectRulesCommand extends ContainerAwareCommand
 		$users = $em->getRepository('HostelMainBundle:User')->findBy(array('banned' => false));
 
 		foreach($users as $u){
-			$k = sprintf('%s,%s', $u->getIp(), $u->getMac());
+			$k = strtoupper(sprintf('%s,%s', $u->getIp(), $u->getMac()));
 			if(isset($rules[$k])){
 				$rules[$k] = true;
 			}else{
 				$output->writeln(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-				$ipmac->unban($u);
+				//$ipmac->unban($u);
 			}
 		}
 
@@ -51,7 +51,7 @@ class CorrectRulesCommand extends ContainerAwareCommand
 
 				$output->writeln(sprintf('Banning %s %s', $ip, $mac));
 
-				$ipmac->banIpMac($ip, $mac);
+				//$ipmac->banIpMac($ip, $mac);
 			}
 		}
 
