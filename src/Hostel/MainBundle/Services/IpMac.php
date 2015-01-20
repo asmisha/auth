@@ -61,7 +61,11 @@ class IpMac {
 	 */
 	public function listRules(){
 		exec('ipset -L | grep ","', $out);
-		return array_combine($out, array_fill(0, count($out), 0));
+		if(count($out)){
+			return array_combine($out, array_fill(0, count($out), 0));
+		}else{
+			return array();
+		}
 	}
 
 } 
