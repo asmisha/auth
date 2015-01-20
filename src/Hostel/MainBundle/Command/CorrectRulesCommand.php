@@ -39,6 +39,8 @@ class CorrectRulesCommand extends ContainerAwareCommand
 			if(isset($rules[$k])){
 				$rules[$k] = true;
 			}else{
+				$output->writeln(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
+
 				$ipmac->unban($u);
 			}
 		}
@@ -46,6 +48,9 @@ class CorrectRulesCommand extends ContainerAwareCommand
 		foreach($rules as $k=>$i){
 			if(!$i){
 				list($ip, $mac) = explode(',', $k);
+
+				$output->writeln(sprintf('Banning %s %s', $ip, $mac));
+
 				$ipmac->banIpMac($ip, $mac);
 			}
 		}
