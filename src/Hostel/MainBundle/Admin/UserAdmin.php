@@ -33,11 +33,10 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->addIdentifier('id', null, array('route' => array('name' => 'show')))
 			->add('username')
 			->add('firstname')
-			->add('middlename')
 			->add('lastname')
 			->add('hostel')
 			->add('room')
-			->add('enabled', null, array('editable' => true))
+			->add('connectionPayed', null, array('editable' => true))
 			// You may also specify the actions you want to be displayed in the list
 			->add('_action', 'actions', array(
 				'actions' => array(
