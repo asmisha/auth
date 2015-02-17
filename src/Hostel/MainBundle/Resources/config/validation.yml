@@ -18,3 +18,8 @@ Hostel\MainBundle\Entity\User:
             - NotBlank: ~
         enabled:
             - NotNull: ~
+
+Hostel\MainBundle\Entity\Payment:
+    properties:
+        user:
+            - NotNull: ~

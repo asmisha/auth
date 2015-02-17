@@ -232,34 +232,6 @@ class Request
     /**
      * @var \Hostel\MainBundle\Entity\User
      */
-    private $admin;
-
-
-    /**
-     * Set admin
-     *
-     * @param \Hostel\MainBundle\Entity\User $admin
-     * @return Request
-     */
-    public function setAdmin(\Hostel\MainBundle\Entity\User $admin = null)
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
-    /**
-     * Get admin
-     *
-     * @return \Hostel\MainBundle\Entity\User 
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
-    }
-    /**
-     * @var \Hostel\MainBundle\Entity\User
-     */
     private $user;
 
 

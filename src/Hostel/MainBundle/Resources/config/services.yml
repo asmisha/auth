@@ -13,6 +13,12 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    subscriber.payment:
+        class: Hostel\MainBundle\Services\PaymentSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
     subscriber.locale:
         class: Hostel\MainBundle\Services\LocaleSubscriber
         arguments: [%locale%]
@@ -29,6 +35,17 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [SonataAdminRequest]]
+
+    sonata.admin.payment:
+        class: Hostel\MainBundle\Admin\PaymentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Администрирование", label: "Оплаты", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
+        arguments:
+            - ~
+            - Hostel\MainBundle\Entity\Payment
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminPayment]]
 
     twig.security_extension:
         class: Hostel\MainBundle\Services\Twig\SecurityExtension
@@ -60,3 +77,8 @@ services:
             - @ipmac
         tags:
             - { name: kernel.event_subscriber }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

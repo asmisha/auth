@@ -87,7 +87,9 @@ doctrine:
                     SonataUserBundle: ~
                     FOSUserBundle: ~
                     HostelMainBundle: ~
-
+                dql:
+                    numeric_functions:
+                        REGEXP: Hostel\MainBundle\DQL\RegexpFunction
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -124,6 +126,8 @@ sonata_admin:
             EXPORT: EXPORT
             OPERATOR: OPERATOR
             MASTER: MASTER
+    templates:
+        layout: HostelMainBundle::admin_layout.html.twig
 
 sonata_block:
     default_contexts: [cms]

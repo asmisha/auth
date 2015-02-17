@@ -53,6 +53,14 @@ class UserSubscriber implements EventSubscriber {
 		/** @var UserManager $userManager */
 		$userManager = $this->container->get('fos_user.user_manager');
 		$userManager->updatePassword($user);
+
+		$user->setIsAdmin(false);
+		foreach($user->getRoles() as $r){
+			if(strpos($r, 'ADMIN') !== false){
+				$user->setIsAdmin(true);
+				break;
+			}
+		}
 	}
 
 }

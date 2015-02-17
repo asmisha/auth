@@ -100,6 +100,10 @@
 			<li><a href="#request" data-toggle="tab">{{ 'Заявки'|trans() }}</a></li>
 		{% endif %}
 
+		{% if is_granted('ROLE_ADMIN') %}
+			<li><a href="{{ path('sonata_admin_dashboard') }}" onclick="window.location.href = $(this).attr('href'); return false;">{{ 'Админка'|trans() }}</a></li>
+		{% endif %}
+
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<li><a href="{{ path('fos_user_security_logout') }}" onclick="window.location.href = $(this).attr('href'); return false;">{{ 'Выход'|trans() }}</a></li>
 		{% endif %}

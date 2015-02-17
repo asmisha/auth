@@ -54,31 +54,33 @@ class AuthenticationListener implements EventSubscriberInterface
 	{
 		/** @var User $user */
 		$user = $event->getAuthenticationToken()->getUser();
-		$ip = $this->requestStack->getCurrentRequest()->getClientIp();
-		$mac = $this->ipmac->getMac($ip);
+		if($user instanceof User){
+			$ip = $this->requestStack->getCurrentRequest()->getClientIp();
+			$mac = $this->ipmac->getMac($ip);
 
-		// If user is not banned and something changed - ban him
-		if(!$user->getBanned() && (($ip && $ip !== $user->getIp()) || ($mac && $mac !== $user->getMac()))){
-			$this->ipmac->ban($user);
-			$banned = true;
-		}else{
-			$banned = false;
+			// If user is not banned and something changed - ban him
+			if(!$user->getBanned() && (($ip && $ip !== $user->getIp()) || ($mac && $mac !== $user->getMac()))){
+				$this->ipmac->ban($user);
+				$banned = true;
+			}else{
+				$banned = false;
+			}
+
+			if($ip){
+				$user->setIp($ip);
+			}
+
+			if($mac){
+				$user->setMac($mac);
+			}
+
+			// if something changed and we banned the user - unban him with the new ip and mac info
+			if($banned){
+				$this->ipmac->unban($user);
+			}
+
+			$this->em->persist($user);
+			$this->em->flush();
 		}
-
-		if($ip){
-			$user->setIp($ip);
-		}
-
-		if($mac){
-			$user->setMac($mac);
-		}
-
-		// if something changed and we banned the user - unban him with the new ip and mac info
-		if($banned){
-			$this->ipmac->unban($user);
-		}
-
-		$this->em->persist($user);
-		$this->em->flush();
 	}
 }

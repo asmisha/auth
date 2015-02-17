@@ -1,0 +1,11 @@
+breadcrumb.link_payment_list: Оплаты
+
+form.label_month: Месяц
+form.label_year: Год
+form.label_user: Пользователь
+
+list.label_id: Id
+list.label_month: Месяц
+list.label_year: Год
+list.label_user: Пользователь
+list.label__action: Действия

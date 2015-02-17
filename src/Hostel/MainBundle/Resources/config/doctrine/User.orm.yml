@@ -47,12 +47,10 @@ Hostel\MainBundle\Entity\User:
         requests:
             targetEntity: Hostel\MainBundle\Entity\Request
             mappedBy: user
-        adminRequests:
-            targetEntity: Hostel\MainBundle\Entity\Request
-            mappedBy: admin
         payments:
             targetEntity: Hostel\MainBundle\Entity\Payment
             mappedBy: user
+            cascade: [persist]
         paymentRequests:
             targetEntity: Hostel\MainBundle\Entity\PaymentRequest
             mappedBy: user

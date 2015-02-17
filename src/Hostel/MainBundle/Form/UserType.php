@@ -5,11 +5,13 @@ namespace Hostel\MainBundle\Form;
 use Hostel\MainBundle\Entity\User;
 use Hostel\MainBundle\Form\Type\AgreeWithTermsType;
 use Hostel\MainBundle\Form\Type\FileListType;
+use Hostel\MainBundle\Form\Type\HostelType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
@@ -28,19 +30,11 @@ class UserType extends AbstractType
 			->add('firstname')
 			->add('middlename')
 			->add('groupNumber')
-			->add('hostel', 'choice', array(
-				'choices' => array(
-					1 => 'hostel1',
-					2 => 'hostel2',
-					3 => 'hostel3',
-					4 => 'hostel4',
-				),
-				'translation_domain' => 'hostels'
-			))
+			->add('hostel', new HostelType())
 			->add('room')
-			->add('passportScans', new FileListType(), array(
-				'mapped' => false
-			))
+//			->add('passportScans', new FileListType(), array(
+//				'mapped' => false
+//			))
 			->add('agreeWithTerms', new AgreeWithTermsType())
 			->add('submit', 'submit')
         ;

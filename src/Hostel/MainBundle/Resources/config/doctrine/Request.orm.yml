@@ -22,9 +22,6 @@ Hostel\MainBundle\Entity\Request:
         user:
             targetEntity: Hostel\MainBundle\Entity\User
             inversedBy: requests
-        admin:
-            targetEntity: Hostel\MainBundle\Entity\User
-            inversedBy: adminRequests
 
     oneToMany:
         comments:

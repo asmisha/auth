@@ -35,23 +35,10 @@ class DefaultSubscriber implements EventSubscriber {
 		$em = $args->getEntityManager();
 
 		if($entity instanceof Request) {
-			/** @var Request $entity */
-			/** @var User[] $admins */
-			$admins = $em->getRepository('HostelMainBundle:User')->findBy(array(
-				'isAdmin' => true
-			));
-			$admin = null;
-
-			foreach($admins as $a){
-				if(preg_match("#{$a->getRoomPattern()}#", $entity->getUser()->getRoom()) || (in_array('ROLE_SUPER_ADMIN', $a->getRoles()) && !$admin)){
-					$admin = $a;
-				}
-			}
-
 			$entity
 				->setDate(new \DateTime())
 				->setStatus(Request::STATUS_NEW)
-				->setAdmin($admin)
+				->setUser($this->container->get('security.context')->getToken()->getUser())
 			;
 		}elseif($entity instanceof Comment) {
 			/** @var Comment $entity */

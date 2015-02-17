@@ -1,11 +1,22 @@
 list.label_id: Id
 list.label_middlename: Отчество
-list.label_firstname: Имя
-list.label_lastname: Фамилия
-list.label_hostel: Общежитие
-list.label_room: Комната
+list.label_hostel: Общ.
+list.label_room: Ком.
 list.label__action: Действия
 list.label_enabled: Подтвержден
+list.label_connection_payed: Подключение оплачено
+list.label_fullname: ФИО
 
 filter.label_enabled: Подтвержден
 filter.label_is_admin: Администратор
+filter.label_banned: Забанен
+
+form.label_middlename: Отчество
+form.label_hostel: Общежитие
+form.label_room: Комната
+form.label_payments: Оплата
+form.label_connection_payed: Оплата подключения
+form.label_room_pattern: Шаблон комнат
+
+role.admin: Администратор
+role.super_admin: Главный администратор

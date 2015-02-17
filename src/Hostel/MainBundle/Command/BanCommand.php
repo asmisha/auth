@@ -31,7 +31,7 @@ class BanCommand extends ContainerAwareCommand
 			->leftJoin('u.payments', 'p', 'WITH', 'p.month = :month AND p.year = :year')
 			->setParameter('month', date('n'))
 			->setParameter('year', date('Y'))
-			->where('u.banned = true AND p.id IS NOT NULL AND u.connectionPayed = true')
+			->where('u.banned = true AND ((p.id IS NOT NULL AND u.connectionPayed = true) OR u.isAdmin = true)')
 			->orWhere('u.banned = false AND (p.id IS NULL OR u.connectionPayed = false)')
 			->andWhere('u.mac is not null')
 			->andWhere('u.ip is not null')

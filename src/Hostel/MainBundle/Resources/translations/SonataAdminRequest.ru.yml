@@ -2,15 +2,18 @@ breadcrumb.link_request_list: Заявки
 
 form.label_title: Описание
 form.label_description: Подробное описание
-form.label_room: Комната
 form.label_status: Статус
 
 list.label_id: Id
 list.label_title: Описание
 list.label_description: Подробное описание
-list.label_room: Комната
-list.label_admin: Администратор
+list.label_user_room: Комната
+list.label_date: Дата создания
 list.label__action: Действия
+
+filter.label_status: Статус
+filter.label_other: Чужие заявки
+filter.label_other_hostels: Все общежития
 
 request.status.new: Новая
 request.status.opened: Открыта

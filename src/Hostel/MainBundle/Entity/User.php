@@ -234,49 +234,11 @@ class User extends BaseUser
     {
         return $this->room;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $adminRequests;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $payments;
-
-
-    /**
-     * Add adminRequests
-     *
-     * @param \Hostel\MainBundle\Entity\Request $adminRequests
-     * @return User
-     */
-    public function addAdminRequest(\Hostel\MainBundle\Entity\Request $adminRequests)
-    {
-        $this->adminRequests[] = $adminRequests;
-
-        return $this;
-    }
-
-    /**
-     * Remove adminRequests
-     *
-     * @param \Hostel\MainBundle\Entity\Request $adminRequests
-     */
-    public function removeAdminRequest(\Hostel\MainBundle\Entity\Request $adminRequests)
-    {
-        $this->adminRequests->removeElement($adminRequests);
-    }
-
-    /**
-     * Get adminRequests
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAdminRequests()
-    {
-        return $this->adminRequests;
-    }
 
     /**
      * Add payments
@@ -287,6 +249,7 @@ class User extends BaseUser
     public function addPayment(\Hostel\MainBundle\Entity\Payment $payments)
     {
         $this->payments[] = $payments;
+		$payments->setUser($this);
 
         return $this;
     }
@@ -299,6 +262,7 @@ class User extends BaseUser
     public function removePayment(\Hostel\MainBundle\Entity\Payment $payments)
     {
         $this->payments->removeElement($payments);
+		$payments->setUser(null);
     }
 
     /**
@@ -633,5 +597,9 @@ class User extends BaseUser
 			parent::setPlainPassword($plainPassword);
 			$this->setUpdatedAt(new \DateTime());
 		}
+	}
+
+	public function getFullName(){
+		return sprintf('%s %s %s', $this->lastname, $this->firstname, $this->middlename);
 	}
 }
