@@ -38,12 +38,13 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('hostel')
 			->add('room')
 			->add('connectionPayed', null, array('editable' => true))
+			->add('banned')
 			// You may also specify the actions you want to be displayed in the list
 			->add('_action', 'actions', array(
 				'actions' => array(
-//					'show' => array(),
+					'show' => array(),
 					'edit' => array(),
-//					'delete' => array(),
+					'delete' => array(),
 				)
 			))
 		;

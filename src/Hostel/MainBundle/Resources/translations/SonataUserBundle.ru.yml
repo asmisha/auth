@@ -6,6 +6,7 @@ list.label__action: Действия
 list.label_enabled: Подтвержден
 list.label_connection_payed: Подключение оплачено
 list.label_fullname: ФИО
+list.label_banned: Забанен
 
 filter.label_enabled: Подтвержден
 filter.label_is_admin: Администратор
