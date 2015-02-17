@@ -93,10 +93,10 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 					'expanded' => true,
 					'multiple' => true,
 					'required' => false,
-//					'choices' => array(
-//						'ROLE_ADMIN' => 'role.admin',
-//						'ROLE_SUPER_ADMIN' => 'role.super_admin',
-//					),
+					'choices' => array(
+						'ROLE_ADMIN' => 'role.admin',
+						'ROLE_SUPER_ADMIN' => 'role.super_admin',
+					),
 					'translation_domain' => $this->getTranslationDomain()
 				))
 				->add('roomPattern')
