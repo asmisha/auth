@@ -19,5 +19,18 @@ form.label_payments: Оплата
 form.label_connection_payed: Оплата подключения
 form.label_room_pattern: Шаблон комнат
 
+show.label_id: Id
+show.label_middlename: Отчество
+show.label_hostel: Общ.
+show.label_room: Ком.
+show.label_banned: Забанен
+show.label_connection_payed: Подключение оплачено
+show.label_fullname: ФИО
+show.label_banned: Забанен
+show.label_payments: Оплаты
+show.label_ip: IP-адрес
+show.label_mac: MAC-адрес
+show.label_passport_scans: Сканы
+
 role.admin: Администратор
 role.super_admin: Главный администратор

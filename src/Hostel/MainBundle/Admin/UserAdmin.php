@@ -38,7 +38,9 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('hostel')
 			->add('room')
 			->add('connectionPayed', null, array('editable' => true))
-			->add('banned')
+			->add('banned', 'choice', array(
+				'template' => 'HostelMainBundle:CRUD:user_list_banned.html.twig'
+			))
 			// You may also specify the actions you want to be displayed in the list
 			->add('_action', 'actions', array(
 				'actions' => array(
@@ -62,7 +64,11 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('lastname')
 			->add('hostel')
 			->add('room')
-			->add('enabled')
+			->add('connectionPayed')
+			->add('payments')
+			->add('banned')
+			->add('ip')
+			->add('mac')
 			->add('passportScans', null, array(
 				'template' => 'HostelMainBundle:CRUD:user_passportScans_show.html.twig'
 			))
