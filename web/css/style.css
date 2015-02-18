@@ -13,3 +13,6 @@ th{ vertical-align: middle !important; }
 }
 
 .jumbotron {background: none !important;}
+
+.comment{margin-bottom: 10px;background: #fafafa;}
+.comment p{font-size: 18px;}

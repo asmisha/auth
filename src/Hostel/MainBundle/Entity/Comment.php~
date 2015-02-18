@@ -136,4 +136,32 @@ class Comment
     {
         return $this->request;
     }
+    /**
+     * @var integer
+     */
+    private $newStatus;
+
+
+    /**
+     * Set newStatus
+     *
+     * @param integer $newStatus
+     * @return Comment
+     */
+    public function setNewStatus($newStatus)
+    {
+        $this->newStatus = $newStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get newStatus
+     *
+     * @return integer 
+     */
+    public function getNewStatus()
+    {
+        return $this->newStatus;
+    }
 }

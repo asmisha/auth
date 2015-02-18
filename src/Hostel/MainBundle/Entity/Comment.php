@@ -30,9 +30,9 @@ class Comment
     private $user;
 
     /**
-     * @var \Hostel\MainBundle\Entity\Request
+     * @var \Hostel\MainBundle\Entity\Ticket
      */
-    private $request;
+    private $ticket;
 
 
     /**
@@ -115,25 +115,81 @@ class Comment
     }
 
     /**
-     * Set request
+     * Set ticket
      *
-     * @param \Hostel\MainBundle\Entity\Request $request
+     * @param \Hostel\MainBundle\Entity\Ticket $ticket
      * @return Comment
      */
-    public function setRequest(\Hostel\MainBundle\Entity\Request $request = null)
+    public function setTicket(\Hostel\MainBundle\Entity\Ticket $ticket = null)
     {
-        $this->request = $request;
+        $this->ticket = $ticket;
 
         return $this;
     }
 
     /**
-     * Get request
+     * Get ticket
      *
-     * @return \Hostel\MainBundle\Entity\Request
+     * @return \Hostel\MainBundle\Entity\Ticket
      */
-    public function getRequest()
+    public function getTicket()
     {
-        return $this->request;
+        return $this->ticket;
+    }
+    /**
+     * @var integer
+     */
+    private $newStatus;
+
+
+    /**
+     * Set newStatus
+     *
+     * @param integer $newStatus
+     * @return Comment
+     */
+    public function setNewStatus($newStatus)
+    {
+        $this->newStatus = $newStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get newStatus
+     *
+     * @return integer 
+     */
+    public function getNewStatus()
+    {
+        return $this->newStatus;
+    }
+    /**
+     * @var integer
+     */
+    private $oldStatus;
+
+
+    /**
+     * Set oldStatus
+     *
+     * @param integer $oldStatus
+     * @return Comment
+     */
+    public function setOldStatus($oldStatus)
+    {
+        $this->oldStatus = $oldStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get oldStatus
+     *
+     * @return integer 
+     */
+    public function getOldStatus()
+    {
+        return $this->oldStatus;
     }
 }

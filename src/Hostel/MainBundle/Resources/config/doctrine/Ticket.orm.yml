@@ -1,4 +1,4 @@
-Hostel\MainBundle\Entity\Request:
+Hostel\MainBundle\Entity\Ticket:
     type: entity
     table: null
     id:
@@ -21,11 +21,12 @@ Hostel\MainBundle\Entity\Request:
     manyToOne:
         user:
             targetEntity: Hostel\MainBundle\Entity\User
-            inversedBy: requests
+            inversedBy: tickets
 
     oneToMany:
         comments:
             targetEntity: Hostel\MainBundle\Entity\Comment
-            mappedBy: request
+            mappedBy: ticket
+            orderBy: { 'date': 'DESC' }
 
     lifecycleCallbacks: {  }

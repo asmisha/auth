@@ -1,24 +1,7 @@
 {% extends 'HostelMainBundle::layout.html.twig' %}
 
 {% block scripts %}
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#tabs a').click(function (e) {
-				e.preventDefault();
-				window.location.hash = $(this).attr('href');
-				$(this).tab('show')
-			});
-
-			var tab = window.location.hash;
-			if(!tab){
-				tab = {{ (app.user ? '#cabinet' : '#login')|json_encode|raw }};
-			}
-
-			$('#tabs a[href=' + tab + ']').tab('show');
-
-		});
-	</script>
-	<script type="text/javascript">
+	{#<script type="text/javascript">
 		(function(){
 			var $collectionHolder;
 
@@ -77,38 +60,10 @@
 	</script>
 	<style>
 		#hostel_mainbundle_user_passportScans label{display: none;}
-	</style>
+	</style>#}
 {% endblock %}
 
 {% block content %}
-	<ul class="nav nav-tabs" id="tabs">
-		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-			<li><a href="#cabinet" data-toggle="tab">{{ 'Личный кабинет'|trans() }}</a></li>
-		{% else %}
-			<li><a href="#login" data-toggle="tab">{{ 'Авторизация'|trans() }}</a></li>
-		{% endif %}
-
-		{% if settingsForm %}
-			<li><a href="#settings" data-toggle="tab">{{ 'Настройки'|trans() }}</a></li>
-		{% endif %}
-
-		{% if registerForm %}
-			<li><a href="#register" data-toggle="tab">{{ 'Регистрация'|trans() }}</a></li>
-		{% endif %}
-
-		{% if requestForm %}
-			<li><a href="#request" data-toggle="tab">{{ 'Заявки'|trans() }}</a></li>
-		{% endif %}
-
-		{% if is_granted('ROLE_ADMIN') %}
-			<li><a href="{{ path('sonata_admin_dashboard') }}" onclick="window.location.href = $(this).attr('href'); return false;">{{ 'Админка'|trans() }}</a></li>
-		{% endif %}
-
-		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-			<li><a href="{{ path('fos_user_security_logout') }}" onclick="window.location.href = $(this).attr('href'); return false;">{{ 'Выход'|trans() }}</a></li>
-		{% endif %}
-	</ul>
-
 	<div class="tab-content">
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<div class="tab-pane jumbotron active" id="cabinet">
@@ -150,15 +105,30 @@
 			</div>
 		{% endif %}
 
-		{% if requestForm %}
-			<div class="tab-pane jumbotron" id="request">
+		{% if ticketForm %}
+			<div class="tab-pane jumbotron" id="tickets">
 				<div class="row">
-					<table>
-						{% for i in app.user.getRequests %}
-						{% endfor %}
-					</table>
-					<div class="col-lg-10" style="float: none;margin: 0 auto;">
-						{{ form(requestForm) }}
+					<div class="col-lg-12">
+						<h3>{{ 'Мои заявки' | trans({}) }}</h3>
+						<table class="table table-bordered">
+							<tr>
+								<th>{{ 'Date'|trans({}, 'Ticket') }}</th>
+								<th>{{ 'Title'|trans({}, 'Ticket') }}</th>
+								<th>{{ 'Status'|trans({}, 'Ticket') }}</th>
+								<th></th>
+							</tr>
+							{% for i in app.user.getTickets %}
+								<tr>
+									<td>{{ i.date|localizeddate('long', 'long', app.request.locale, null, 'dd MMMM Y HH:mm') }}</td>
+									<td>{{ i.title }}</td>
+									<td>{{ i.status|trans({}, 'TicketStatus') }}</td>
+									<td>
+										<a class="btn" href="{{ path('ticket', {id: i.id}) }}">{{ 'Open'|trans({}, 'TicketStatus') }}</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+						{{ form(ticketForm) }}
 					</div>
 				</div>
 			</div>

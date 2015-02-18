@@ -12,15 +12,6 @@ class Request
 	const STATUS_NEW = 1;
 	const STATUS_OPENED = 2;
 	const STATUS_CLOSED = 3;
-	public static $Statuses = array(
-		self::STATUS_NEW => 'new',
-		self::STATUS_OPENED => 'opened',
-		self::STATUS_CLOSED => 'closed',
-	);
-
-	public function getStatusText(){
-		return @self::$Statuses[$this->status];
-	}
 
     /**
      * @var integer
@@ -41,11 +32,6 @@ class Request
      * @var string
      */
     private $description;
-
-    /**
-     * @var string
-     */
-    private $hash;
 
     /**
      * @var integer
@@ -130,29 +116,6 @@ class Request
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set hash
-     *
-     * @param string $hash
-     * @return Request
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
-
-    /**
-     * Get hash
-     *
-     * @return string 
-     */
-    public function getHash()
-    {
-        return $this->hash;
     }
 
     /**
@@ -256,34 +219,6 @@ class Request
     public function getComments()
     {
         return $this->comments;
-    }
-    /**
-     * @var \Hostel\MainBundle\Entity\User
-     */
-    private $admin;
-
-
-    /**
-     * Set admin
-     *
-     * @param \Hostel\MainBundle\Entity\User $admin
-     * @return Request
-     */
-    public function setAdmin(\Hostel\MainBundle\Entity\User $admin = null)
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
-    /**
-     * Get admin
-     *
-     * @return \Hostel\MainBundle\Entity\User 
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
     }
     /**
      * @var \Hostel\MainBundle\Entity\User

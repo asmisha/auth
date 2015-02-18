@@ -136,4 +136,32 @@ class Operation
     {
         return $this->data;
     }
+    /**
+     * @var \Hostel\MainBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \Hostel\MainBundle\Entity\User $user
+     * @return Operation
+     */
+    public function setUser(\Hostel\MainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Hostel\MainBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

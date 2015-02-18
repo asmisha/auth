@@ -2,14 +2,9 @@ index:
     pattern:  /
     defaults: { _controller: HostelMainBundle:Default:index }
 
-request:
-    pattern: /request/{id}
-    defaults: { _controller: HostelMainBundle:Default:request }
-
-request_add_comment:
-    pattern: /request/{id}/addComment
-    defaults: { _controller: HostelMainBundle:Default:requestAddComment }
-    methods: [POST]
+ticket:
+    pattern: /ticket/{id}
+    defaults: { _controller: HostelMainBundle:Default:ticket }
 
 terms:
     pattern: /terms

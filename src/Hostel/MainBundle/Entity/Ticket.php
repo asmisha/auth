@@ -5,22 +5,13 @@ namespace Hostel\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Request
+ * Ticket
  */
-class Request
+class Ticket
 {
 	const STATUS_NEW = 1;
 	const STATUS_OPENED = 2;
 	const STATUS_CLOSED = 3;
-	public static $Statuses = array(
-		self::STATUS_NEW => 'new',
-		self::STATUS_OPENED => 'opened',
-		self::STATUS_CLOSED => 'closed',
-	);
-
-	public function getStatusText(){
-		return @self::$Statuses[$this->status];
-	}
 
     /**
      * @var integer
@@ -62,7 +53,7 @@ class Request
      * Set name
      *
      * @param string $name
-     * @return Request
+     * @return Ticket
      */
     public function setName($name)
     {
@@ -85,7 +76,7 @@ class Request
      * Set date
      *
      * @param \DateTime $date
-     * @return Request
+     * @return Ticket
      */
     public function setDate($date)
     {
@@ -108,7 +99,7 @@ class Request
      * Set description
      *
      * @param string $description
-     * @return Request
+     * @return Ticket
      */
     public function setDescription($description)
     {
@@ -131,7 +122,7 @@ class Request
      * Set status
      *
      * @param integer $status
-     * @return Request
+     * @return Ticket
      */
     public function setStatus($status)
     {
@@ -159,7 +150,7 @@ class Request
      * Set title
      *
      * @param string $title
-     * @return Request
+     * @return Ticket
      */
     public function setTitle($title)
     {
@@ -201,7 +192,7 @@ class Request
      * Add comments
      *
      * @param \Hostel\MainBundle\Entity\Comment $comments
-     * @return Request
+     * @return Ticket
      */
     public function addComment(\Hostel\MainBundle\Entity\Comment $comments)
     {
@@ -239,7 +230,7 @@ class Request
      * Set user
      *
      * @param \Hostel\MainBundle\Entity\User $user
-     * @return Request
+     * @return Ticket
      */
     public function setUser(\Hostel\MainBundle\Entity\User $user = null)
     {

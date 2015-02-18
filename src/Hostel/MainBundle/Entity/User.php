@@ -115,40 +115,40 @@ class User extends BaseUser
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $requests;
+    private $tickets;
 
 
     /**
-     * Add requests
+     * Add tickets
      *
-     * @param \Hostel\MainBundle\Entity\Request $requests
+     * @param \Hostel\MainBundle\Entity\Ticket $tickets
      * @return User
      */
-    public function addRequest(\Hostel\MainBundle\Entity\Request $requests)
+    public function addTicket(\Hostel\MainBundle\Entity\Ticket $tickets)
     {
-        $this->requests[] = $requests;
+        $this->tickets[] = $tickets;
 
         return $this;
     }
 
     /**
-     * Remove requests
+     * Remove tickets
      *
-     * @param \Hostel\MainBundle\Entity\Request $requests
+     * @param \Hostel\MainBundle\Entity\Ticket $tickets
      */
-    public function removeRequest(\Hostel\MainBundle\Entity\Request $requests)
+    public function removeTicket(\Hostel\MainBundle\Entity\Ticket $tickets)
     {
-        $this->requests->removeElement($requests);
+        $this->tickets->removeElement($tickets);
     }
 
     /**
-     * Get requests
+     * Get tickets
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRequests()
+    public function getTickets()
     {
-        return $this->requests;
+        return $this->tickets;
     }
     /**
      * @var string

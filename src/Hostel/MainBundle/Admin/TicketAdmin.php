@@ -9,22 +9,30 @@ namespace Hostel\MainBundle\Admin;
 
 
 use Doctrine\ORM\QueryBuilder;
-use Hostel\MainBundle\Entity\Request;
 use Hostel\MainBundle\Entity\User;
-use Hostel\MainBundle\Form\Type\RequestStatusType;
+use Hostel\MainBundle\Form\Type\TicketStatusType;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
-class RequestAdmin extends Admin{
+class TicketAdmin extends Admin{
 	protected $datagridValues = array(
+		'status' => array('value' => array(1, 2)),
+		'my_tickets' => array('value' => true),
+		'my_hostel' => array('value' => true),
 		'_page' => 1,
 		'_sort_order' => 'DESC', // sort direction
 		'_sort_by' => 'date' // field name
 	);
+
+	protected function configureRoutes(RouteCollection $collection){
+		$collection->remove('edit');
+		$collection->remove('delete');
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -40,12 +48,11 @@ class RequestAdmin extends Admin{
 			// You may also specify the actions you want to be displayed in the list
 			->add('_action', 'actions', array(
 				'actions' => array(
-					'show' => array(),
+					'show' => array(
+						'template' => 'HostelMainBundle:CRUD:ticket_list__action_show.html.twig'
+					),
 					'edit' => array(),
 					'delete' => array(),
-					'view' => array(
-						'template' => 'HostelMainBundle:CRUD:list__action_view.html.twig'
-					),
 				)
 			))
 		;
@@ -71,7 +78,7 @@ class RequestAdmin extends Admin{
 		$formMapper
 			->add('title')
 			->add('description')
-			->add('status', new RequestStatusType())
+			->add('status', new TicketStatusType())
 		;
 	}
 
@@ -85,16 +92,17 @@ class RequestAdmin extends Admin{
 
 		$datagridMapper
 			->add('status', 'doctrine_orm_choice', array(),
-				new RequestStatusType(),
+				new TicketStatusType(),
 				array(
 					'multiple' => true,
 					'expanded' => true,
+					'data' => array(1, 2),
 				)
 			)
-			->add('other', 'doctrine_orm_callback', array(
+			->add('my_tickets', 'doctrine_orm_callback', array(
 				'callback' => function($queryBuilder, $alias, $field, $value) use ($admin){
 						/** @var QueryBuilder $queryBuilder */
-						if (!$value['value']) {
+						if ($value['value']) {
 							$queryBuilder
 								->join(sprintf('%s.user', $alias), 'u')
 								->andWhere('REGEXP(u.room, :regex) = 1 AND u.hostel = :hostel')
@@ -108,13 +116,13 @@ class RequestAdmin extends Admin{
 					},
 				'field_type' => 'checkbox'
 			))
-			->add('other_hostels', 'doctrine_orm_callback', array(
+			->add('my_hostel', 'doctrine_orm_callback', array(
 				'callback' => function($queryBuilder, $alias, $field, $value) use ($admin){
 						/** @var QueryBuilder $queryBuilder */
-						if (!$value['value']) {
+						if ($value['value']) {
 							$queryBuilder
-								->join(sprintf('%s.user', $alias), '__u')
-								->andWhere('__u.hostel = :hostel')
+								->join(sprintf('%s.user', $alias), '_u')
+								->andWhere('_u.hostel = :hostel')
 								->setParameter('hostel', $admin->getHostel())
 							;
 							return true;

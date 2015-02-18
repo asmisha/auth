@@ -44,8 +44,8 @@ Hostel\MainBundle\Entity\User:
             type: boolean
 
     oneToMany:
-        requests:
-            targetEntity: Hostel\MainBundle\Entity\Request
+        tickets:
+            targetEntity: Hostel\MainBundle\Entity\Ticket
             mappedBy: user
         payments:
             targetEntity: Hostel\MainBundle\Entity\Payment

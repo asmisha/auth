@@ -10,14 +10,23 @@ Hostel\MainBundle\Entity\Comment:
     fields:
         text:
             type: text
+            nullable: true
         date:
             type: datetime
+        oldStatus:
+            type: integer
+            nullable: true
+        newStatus:
+            type: integer
+            nullable: true
 
     manyToOne:
         user:
             targetEntity: Hostel\MainBundle\Entity\User
-        request:
-            targetEntity: Hostel\MainBundle\Entity\Request
+        ticket:
+            targetEntity: Hostel\MainBundle\Entity\Ticket
             inversedBy: comments
+            joinColumn:
+                onDelete: CASCADE
 
     lifecycleCallbacks: {  }

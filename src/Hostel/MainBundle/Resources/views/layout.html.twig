@@ -26,6 +26,19 @@
 			if(getParameterByName('error')){
 				bootstrapAlert(getParameterByName('error'), 'danger');
 			}
+
+			$('#tabs a').click(function (e) {
+				e.preventDefault();
+				window.location.hash = $(this).attr('href');
+				$(this).tab('show')
+			});
+
+			var tab = window.location.hash;
+			if(!tab){
+				tab = {{ (app.user ? '#cabinet' : '#login')|json_encode|raw }};
+			}
+
+			$('#tabs a[href="' + tab + '"]').tab('show');
 		});
 	</script>
 
@@ -47,6 +60,36 @@
 			{% endblock %}
 		</h1>
 	</div>
+
+	<ul class="nav nav-tabs" id="tabs">
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#cabinet" data-toggle="tab">{{ 'Личный кабинет'|trans() }}</a></li>
+			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#settings" data-toggle="tab">{{ 'Настройки'|trans() }}</a></li>
+			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#tickets" data-toggle="tab">{{ 'Заявки'|trans() }}</a></li>
+		{% else %}
+			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#login" data-toggle="tab">{{ 'Авторизация'|trans() }}</a></li>
+			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#register" data-toggle="tab">{{ 'Регистрация'|trans() }}</a></li>
+		{% endif %}
+
+		{% if is_granted('ROLE_ADMIN') %}
+			<li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'Админка'|trans() }}</a></li>
+		{% endif %}
+
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<li><a href="{{ url('fos_user_security_logout') }}">{{ 'Выход'|trans() }}</a></li>
+		{% endif %}
+	</ul>
+
+	<script>
+		$('.nav-tabs li a').click(function(){
+			var href = $(this).attr('href');
+			if(href[0] != '#') {
+				window.location.href = href;
+				event.stopPropagation();
+				return false;
+			}
+		});
+	</script>
 
 	{% block content %}
 	{% endblock %}

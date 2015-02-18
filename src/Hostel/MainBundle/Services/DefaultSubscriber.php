@@ -10,9 +10,8 @@ namespace Hostel\MainBundle\Services;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Hostel\MainBundle\Entity\User;
+use Hostel\MainBundle\Entity\Ticket;
 use Hostel\MainBundle\Entity\Comment;
-use Hostel\MainBundle\Entity\Request;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -34,10 +33,10 @@ class DefaultSubscriber implements EventSubscriber {
 		$entity = $args->getEntity();
 		$em = $args->getEntityManager();
 
-		if($entity instanceof Request) {
+		if($entity instanceof Ticket) {
 			$entity
 				->setDate(new \DateTime())
-				->setStatus(Request::STATUS_NEW)
+				->setStatus(Ticket::STATUS_NEW)
 				->setUser($this->container->get('security.context')->getToken()->getUser())
 			;
 		}elseif($entity instanceof Comment) {

@@ -1,0 +1,59 @@
+{% extends 'HostelMainBundle::layout.html.twig' %}
+
+{% block content %}
+	<style>
+		#hostel_mainbundle_comment_submits .col-sm-2{display: none;}
+		#hostel_mainbundle_comment_submits .form-group{margin-right:0;}
+	</style>
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>{{ 'Ticket Id'|trans({'%id%':ticket.id}, 'Ticket') }}</h3>
+				<table class="table table-striped table-bordered">
+					<tr>
+						<td style="width:200px;">{{ 'Date'|trans({}, 'Ticket') }}</td>
+						<td>{{ ticket.date|localizeddate('long', 'long', app.request.locale, null, 'EEEE dd MMMM Y HH:mm') }}</td>
+					</tr>
+					<tr>
+						<td>{{ 'Title'|trans({}, 'Ticket') }}</td>
+						<td>{{ ticket.title }}</td>
+					</tr>
+					<tr>
+						<td>{{ 'Description'|trans({}, 'Ticket') }}</td>
+						<td>{{ ticket.description|nl2br }}</td>
+					</tr>
+					<tr>
+						<td>{{ 'Status'|trans({}, 'Ticket') }}</td>
+						<td>{{ ticket.status| trans([], 'TicketStatus') }}</td>
+					</tr>
+				</table>
+
+				<h3>{{ 'Comments'|trans({}, 'Ticket') }}:</h3>
+
+				{% form_theme commentForm 'bootstrap_3_horizontal_layout.html.twig' %}
+				<div class="row">
+					<div class="col-lg-6">
+						{{ form(commentForm) }}
+					</div>
+				</div>
+
+				{% for i in ticket.comments %}
+					<blockquote class="comment">
+						{% if i.text %}
+							<p>{{ i.text|nl2br }}</p>
+						{% endif %}
+						<small>
+							{{ i.user.firstname }} {{ i.user.lastname }},
+							{{ i.date|localizeddate('long', 'long', app.request.locale, null, 'EEEE dd MMMM Y HH:mm') }}.
+							{% if i.oldStatus != i.newStatus %}
+								<strike><b>{{ i.oldStatus|trans({}, 'TicketStatus') }}</b></strike>
+								=>
+								<b>{{ i.newStatus|trans({}, 'TicketStatus') }}</b>
+							{% endif %}
+						</small>
+					</blockquote>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -25,16 +25,16 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    sonata.admin.request:
-        class: Hostel\MainBundle\Admin\RequestAdmin
+    sonata.admin.ticket:
+        class: Hostel\MainBundle\Admin\TicketAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Администрирование", label: "Заявки", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
         arguments:
             - ~
-            - Hostel\MainBundle\Entity\Request
+            - Hostel\MainBundle\Entity\Ticket
             - ~
         calls:
-            - [ setTranslationDomain, [SonataAdminRequest]]
+            - [ setTranslationDomain, [SonataAdminTicket]]
 
     sonata.admin.payment:
         class: Hostel\MainBundle\Admin\PaymentAdmin

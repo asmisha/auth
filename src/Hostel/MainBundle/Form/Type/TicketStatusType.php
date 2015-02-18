@@ -2,21 +2,23 @@
 
 namespace Hostel\MainBundle\Form\Type;
 
-use Hostel\MainBundle\Entity\Request;
+use Hostel\MainBundle\Entity\Ticket;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RequestStatusType extends AbstractType
+class TicketStatusType extends AbstractType
 {
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
+		$statuses = array(
+			Ticket::STATUS_NEW,
+			Ticket::STATUS_OPENED,
+			Ticket::STATUS_CLOSED,
+		);
+
 		$resolver->setDefaults(array(
-			'choices'=>array(
-				Request::STATUS_NEW => 'request.status.new',
-				Request::STATUS_OPENED => 'request.status.opened',
-				Request::STATUS_CLOSED => 'request.status.closed',
-			),
-			'translation_domain' => 'SonataAdminRequest'
+			'choices'=>array_combine($statuses, $statuses),
+			'translation_domain' => 'TicketStatus',
 		));
 	}
 
