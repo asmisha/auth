@@ -32,7 +32,7 @@ class BanCommand extends ContainerAwareCommand
 			->setParameter('month', date('n'))
 			->setParameter('year', date('Y'))
 			->where('u.banned = true AND ((p.id IS NOT NULL AND u.connectionPayed = true) OR u.isAdmin = true)')
-			->orWhere('u.banned = false AND (p.id IS NULL OR u.connectionPayed = false)')
+			->orWhere('u.banned = false AND (p.id IS NULL OR u.connectionPayed = false) AND u.isAdmin = false')
 			->andWhere('u.mac is not null')
 			->andWhere('u.ip is not null')
 			->getQuery()
