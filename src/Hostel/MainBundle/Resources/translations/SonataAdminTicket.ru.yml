@@ -9,6 +9,7 @@ list.label_title: Описание
 list.label_description: Подробное описание
 list.label_user_room: Комната
 list.label_date: Дата создания
+list.label_status: Статус
 list.label__action: Действия
 
 filter.label_status: Статус

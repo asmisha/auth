@@ -45,6 +45,9 @@ class TicketAdmin extends Admin{
 			->add('description')
 			->add('user.room')
 			->add('date')
+			->add('status', 'text', array(
+				'template' => 'HostelMainBundle:CRUD:ticket_list_status.html.twig'
+			))
 			// You may also specify the actions you want to be displayed in the list
 			->add('_action', 'actions', array(
 				'actions' => array(
