@@ -192,8 +192,8 @@
 								</td>
 								<td>{{ i.skype|default('') }}</td>
 								<td>
-									{% if i.email and not (i.email starts with '@') %}
-										<a href="mailto:{{ i.email }}" target="_blank">{{ i.email }}</a>
+									{% if i.actualEmail %}
+										<a href="mailto:{{ i.actualEmail }}" target="_blank">{{ i.actualEmail }}</a>
 									{% endif %}
 								</td>
 								<td>{{ i.phoneNumber|default('') }}</td>

@@ -54,6 +54,9 @@ Hostel\MainBundle\Entity\User:
         position:
             type: string
             nullable: true
+        actualEmail:
+            type: string
+            nullable: true
 
     oneToMany:
         tickets:
