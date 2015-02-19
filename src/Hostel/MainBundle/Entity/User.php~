@@ -59,9 +59,8 @@ class User extends BaseUser
 
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->emailCanonical = md5(mt_rand().time()).'@tut.by';
+		$this->emailCanonical = $this->email = md5(mt_rand().time()).'@tut.by';
 		$this->enabled = true;
-		$this->email = '';
     }
 
     /**
@@ -686,5 +685,89 @@ class User extends BaseUser
     public function getPosition()
     {
         return $this->position;
+    }
+    /**
+     * @var string
+     */
+    private $skype;
+
+    /**
+     * @var string
+     */
+    private $phoneNumber;
+
+
+    /**
+     * Set skype
+     *
+     * @param string $skype
+     * @return User
+     */
+    public function setSkype($skype)
+    {
+        $this->skype = $skype;
+
+        return $this;
+    }
+
+    /**
+     * Get skype
+     *
+     * @return string 
+     */
+    public function getSkype()
+    {
+        return $this->skype;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string 
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+    /**
+     * @var string
+     */
+    private $actualEmail;
+
+
+    /**
+     * Set actualEmail
+     *
+     * @param string $actualEmail
+     * @return User
+     */
+    public function setActualEmail($actualEmail)
+    {
+        $this->actualEmail = $actualEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get actualEmail
+     *
+     * @return string 
+     */
+    public function getActualEmail()
+    {
+        return $this->actualEmail;
     }
 }

@@ -742,4 +742,32 @@ class User extends BaseUser
     {
         return $this->phoneNumber;
     }
+    /**
+     * @var string
+     */
+    private $actualEmail;
+
+
+    /**
+     * Set actualEmail
+     *
+     * @param string $actualEmail
+     * @return User
+     */
+    public function setActualEmail($actualEmail)
+    {
+        $this->actualEmail = $actualEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get actualEmail
+     *
+     * @return string 
+     */
+    public function getActualEmail()
+    {
+        return $this->actualEmail;
+    }
 }
