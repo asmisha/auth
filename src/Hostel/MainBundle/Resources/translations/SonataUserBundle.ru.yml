@@ -22,6 +22,7 @@ form.label_vk_link: Ссылка на vk
 form.label_position: Должность
 form.label_skype: Skype
 form.label_phone_number: Телефон
+form.label_actual_email: E-mail
 
 show.label_id: Id
 show.label_middlename: Отчество
