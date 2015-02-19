@@ -126,7 +126,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 				->remove('connectionPayed')
 				->add('vkLink', 'url', array('required' => false))
 				->add('skype', null, array('required' => false))
-				->add('email', null, array('required' => false))
+				->add('email', 'text', array('required' => false))
 				->add('phoneNumber', null, array('required' => false))
 				->add('roomPattern', null, array('required' => false))
 				->add('position', null, array('required' => false))
