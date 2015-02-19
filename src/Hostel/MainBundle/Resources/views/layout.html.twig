@@ -14,7 +14,8 @@
 	{#<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />#}
 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/application.js"></script>
 
@@ -71,10 +72,17 @@
 			<li><a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#register" data-toggle="tab">{{ 'Регистрация'|trans() }}</a></li>
 		{% endif %}
 
+		<li class="faq">
+			<a data-placement="bottom" title="Если Вы здесь впервые, эта вкладка может быть полезной для Вас" href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#faq" data-toggle="tab"><b>{{ 'Где я?'|trans() }}</b></a>
+		</li>
+
+		<li>
+			<a href="{{ app.request.get('_route') == 'index' ? '' : path('index') }}#admins" data-toggle="tab">{{ 'Администраторы'|trans() }}</a>
+		</li>
+
 		{% if is_granted('ROLE_ADMIN') %}
 			<li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'Админка'|trans() }}</a></li>
 		{% endif %}
-
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<li><a href="{{ url('fos_user_security_logout') }}">{{ 'Выход'|trans() }}</a></li>
 		{% endif %}
@@ -89,6 +97,28 @@
 				return false;
 			}
 		});
+
+		if(!$.cookie('visited')|| true) {
+			$(".faq a").tooltip();
+
+			$.cookie('visited', true, {expires: 100000});
+			$(document).ready(function(){
+				var $layer = $('#init-shadow');
+				$('.faq').addClass('shadowed');
+				$(".faq a").tooltip('show');
+
+				$layer.fadeIn('fast');
+
+				var handler = function (event) {
+					$(document).off("click", handler);
+					$('.faq').removeClass('shadowed');
+					$(".faq a").tooltip('destroy');
+					$layer.fadeOut('fast');
+				};
+
+				$(document).on("click", handler);
+			});
+		}
 	</script>
 
 	{% block content %}
@@ -98,6 +128,8 @@
 <div id="popup-terms" style="display: none;">Договор</div>
 
 <div id="alert_placeholder"></div>
+
+<div id="init-shadow"></div>
 
 </body>
 

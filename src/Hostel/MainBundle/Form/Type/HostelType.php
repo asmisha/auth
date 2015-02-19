@@ -10,13 +10,9 @@ class HostelType extends AbstractType
 {
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
+		$hostels = range(1, 4);
 		$resolver->setDefaults(array(
-			'choices' => array(
-				1 => 'hostel1',
-				2 => 'hostel2',
-				3 => 'hostel3',
-				4 => 'hostel4',
-			),
+			'choices' => array_combine($hostels, $hostels),
 			'translation_domain' => 'hostels'
 		));
 	}

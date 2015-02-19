@@ -59,8 +59,9 @@ class User extends BaseUser
 
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->email = $this->emailCanonical = md5(mt_rand().time()).'@tut.by';
+		$this->emailCanonical = md5(mt_rand().time()).'@tut.by';
 		$this->enabled = true;
+		$this->email = '';
     }
 
     /**
@@ -602,4 +603,144 @@ class User extends BaseUser
 	public function getFullName(){
 		return sprintf('%s %s %s', $this->lastname, $this->firstname, $this->middlename);
 	}
+    /**
+     * @var string
+     */
+    private $vkLink;
+
+
+    /**
+     * Set vkLink
+     *
+     * @param string $vkLink
+     * @return User
+     */
+    public function setVkLink($vkLink)
+    {
+        $this->vkLink = $vkLink;
+
+        return $this;
+    }
+
+    /**
+     * Get vkLink
+     *
+     * @return string 
+     */
+    public function getVkLink()
+    {
+        return $this->vkLink;
+    }
+    /**
+     * @var string
+     */
+    private $adminDescription;
+
+
+    /**
+     * Set adminDescription
+     *
+     * @param string $adminDescription
+     * @return User
+     */
+    public function setAdminDescription($adminDescription)
+    {
+        $this->adminDescription = $adminDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get adminDescription
+     *
+     * @return string 
+     */
+    public function getAdminDescription()
+    {
+        return $this->adminDescription;
+    }
+    /**
+     * @var string
+     */
+    private $position;
+
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     * @return User
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+    /**
+     * @var string
+     */
+    private $skype;
+
+    /**
+     * @var string
+     */
+    private $phoneNumber;
+
+
+    /**
+     * Set skype
+     *
+     * @param string $skype
+     * @return User
+     */
+    public function setSkype($skype)
+    {
+        $this->skype = $skype;
+
+        return $this;
+    }
+
+    /**
+     * Get skype
+     *
+     * @return string 
+     */
+    public function getSkype()
+    {
+        return $this->skype;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string 
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
 }

@@ -8,6 +8,7 @@
 namespace Hostel\MainBundle\Admin;
 
 
+use Hostel\MainBundle\Entity\User;
 use Hostel\MainBundle\Form\Type\HostelType;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -59,6 +60,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 	{
 		$showMapper
 			->add('id')
+			->add('email')
 			->add('firstname')
 			->add('middlename')
 			->add('lastname')
@@ -91,6 +93,13 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('connectionPayed', null, array(
 				'required' => false
 			))
+			->add('payments', 'sonata_type_collection', array(
+				'by_reference' => false,
+				'attr'=>array('data-sonata-select2'=>'false'),
+			), array(
+				'edit' => 'inline',
+				'inline' => 'table',
+			))
 		;
 
 		if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
@@ -106,19 +115,23 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 					),
 					'translation_domain' => $this->getTranslationDomain()
 				))
-				->add('roomPattern')
 			;
 		}
 
-		$formMapper
-			->add('payments', 'sonata_type_collection', array(
-				'by_reference' => false,
-				'attr'=>array('data-sonata-select2'=>'false'),
-			), array(
-				'edit' => 'inline',
-				'inline' => 'table',
-			))
-		;
+		/** @var User $user */
+		$user = $this->getRoot()->getSubject();
+		if($user && $user->getIsAdmin()){
+			$formMapper
+				->remove('payments')
+				->remove('connectionPayed')
+				->add('vkLink', 'url', array('required' => false))
+				->add('skype', 'url', array('required' => false))
+				->add('email', null, array('required' => false))
+				->add('phoneNumber', null, array('required' => false))
+				->add('roomPattern', null, array('required' => false))
+				->add('position', null, array('required' => false))
+				;
+		}
 	}
 
 	/**

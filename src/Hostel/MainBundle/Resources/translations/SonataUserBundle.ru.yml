@@ -18,6 +18,10 @@ form.label_room: Комната
 form.label_payments: Оплата
 form.label_connection_payed: Оплата подключения
 form.label_room_pattern: Шаблон комнат
+form.label_vk_link: Ссылка на vk
+form.label_position: Должность
+form.label_skype: Skype
+form.label_phone_number: Телефон
 
 show.label_id: Id
 show.label_middlename: Отчество

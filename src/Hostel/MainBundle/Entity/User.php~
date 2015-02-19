@@ -59,8 +59,9 @@ class User extends BaseUser
 
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->email = $this->emailCanonical = md5(mt_rand().time()).'@tut.by';
+		$this->emailCanonical = md5(mt_rand().time()).'@tut.by';
 		$this->enabled = true;
+		$this->email = '';
     }
 
     /**
@@ -115,40 +116,40 @@ class User extends BaseUser
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $requests;
+    private $tickets;
 
 
     /**
-     * Add requests
+     * Add tickets
      *
-     * @param \Hostel\MainBundle\Entity\Request $requests
+     * @param \Hostel\MainBundle\Entity\Ticket $tickets
      * @return User
      */
-    public function addRequest(\Hostel\MainBundle\Entity\Request $requests)
+    public function addTicket(\Hostel\MainBundle\Entity\Ticket $tickets)
     {
-        $this->requests[] = $requests;
+        $this->tickets[] = $tickets;
 
         return $this;
     }
 
     /**
-     * Remove requests
+     * Remove tickets
      *
-     * @param \Hostel\MainBundle\Entity\Request $requests
+     * @param \Hostel\MainBundle\Entity\Ticket $tickets
      */
-    public function removeRequest(\Hostel\MainBundle\Entity\Request $requests)
+    public function removeTicket(\Hostel\MainBundle\Entity\Ticket $tickets)
     {
-        $this->requests->removeElement($requests);
+        $this->tickets->removeElement($tickets);
     }
 
     /**
-     * Get requests
+     * Get tickets
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRequests()
+    public function getTickets()
     {
-        return $this->requests;
+        return $this->tickets;
     }
     /**
      * @var string
@@ -602,4 +603,88 @@ class User extends BaseUser
 	public function getFullName(){
 		return sprintf('%s %s %s', $this->lastname, $this->firstname, $this->middlename);
 	}
+    /**
+     * @var string
+     */
+    private $vkLink;
+
+
+    /**
+     * Set vkLink
+     *
+     * @param string $vkLink
+     * @return User
+     */
+    public function setVkLink($vkLink)
+    {
+        $this->vkLink = $vkLink;
+
+        return $this;
+    }
+
+    /**
+     * Get vkLink
+     *
+     * @return string 
+     */
+    public function getVkLink()
+    {
+        return $this->vkLink;
+    }
+    /**
+     * @var string
+     */
+    private $adminDescription;
+
+
+    /**
+     * Set adminDescription
+     *
+     * @param string $adminDescription
+     * @return User
+     */
+    public function setAdminDescription($adminDescription)
+    {
+        $this->adminDescription = $adminDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get adminDescription
+     *
+     * @return string 
+     */
+    public function getAdminDescription()
+    {
+        return $this->adminDescription;
+    }
+    /**
+     * @var string
+     */
+    private $position;
+
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     * @return User
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
 }

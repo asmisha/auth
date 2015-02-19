@@ -3,6 +3,7 @@
 namespace Hostel\MainBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Hostel\MainBundle\Entity\Comment;
 use Hostel\MainBundle\Entity\PaymentRequest;
 use Hostel\MainBundle\Entity\Ticket;
@@ -87,10 +88,21 @@ class DefaultController extends Controller
 			}
 		}
 
+		/** @var QueryBuilder $qb */
+		$qb = $this->getDoctrine()->getRepository('HostelMainBundle:User')->createQueryBuilder('u');
+		$admins = $qb
+			->where('u.isAdmin = 1')
+			->orderBy('u.hostel')
+			->addOrderBy('u.position')
+			->getQuery()
+			->getResult()
+			;
+
         return $this->render('HostelMainBundle:Default:index.html.twig', array(
 			'ticketForm' => $ticketForm ? $ticketForm->createView() : null,
 			'registerForm' => $registerForm ? $registerForm->createView() : null,
 			'settingsForm' => $settingsForm ? $settingsForm->createView() : null,
+			'admins' => $admins,
 		));
     }
     public function registrationSuccessAction()

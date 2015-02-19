@@ -42,6 +42,18 @@ Hostel\MainBundle\Entity\User:
             type: boolean
         checked:
             type: boolean
+        vkLink:
+            type: string
+            nullable: true
+        skype:
+            type: string
+            nullable: true
+        phoneNumber:
+            type: string
+            nullable: true
+        position:
+            type: string
+            nullable: true
 
     oneToMany:
         tickets:
