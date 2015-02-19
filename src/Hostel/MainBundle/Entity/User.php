@@ -59,9 +59,8 @@ class User extends BaseUser
 
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->passportScans = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->emailCanonical = md5(mt_rand().time()).'@tut.by';
+		$this->emailCanonical = $this->email = '@'.md5(mt_rand().time());
 		$this->enabled = true;
-		$this->email = '';
     }
 
     /**
