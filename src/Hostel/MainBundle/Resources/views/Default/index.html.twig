@@ -175,6 +175,7 @@
 							<th>Общежитие</th>
 							<th>Этажи</th>
 							<th>ФИО</th>
+							<th>Комната</th>
 							<th>vk</th>
 							<th>skype</th>
 							<th>E-mail</th>
@@ -185,6 +186,7 @@
 								<td>{{ i.hostel|trans({}, 'hostels') }}</td>
 								<td>{{ i.position }}</td>
 								<td>{{ i.lastname }} {{ i.firstname }}</td>
+								<td>{{ i.room }}</td>
 								<td>
 									{% if i.vkLink %}
 										<a href="{{ i.vkLink }}" target="_blank">{{ i.vkLink }}</a>
