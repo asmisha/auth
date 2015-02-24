@@ -36,6 +36,7 @@ show.label_payments: Оплаты
 show.label_ip: IP-адрес
 show.label_mac: MAC-адрес
 show.label_passport_scans: Сканы
+show.label_actual_email: E-mail
 
 role.admin: Администратор
 role.super_admin: Главный администратор

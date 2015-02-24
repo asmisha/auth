@@ -60,7 +60,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 	{
 		$showMapper
 			->add('id')
-			->add('email')
+			->add('actualEmail')
 			->add('firstname')
 			->add('middlename')
 			->add('lastname')
