@@ -78,7 +78,9 @@ class RemoteIpMac implements IpMacInterface{
 		return $this->read();
 	}
 
-	public function banIpMac($ip, $mac, $log = true){
+	public function banIpMac($ip, $mac){
+		$this->loggerBan->info(sprintf('Banning %s %s', $ip, $mac));
+
 		$this->disconnect();
 
 		$this->write(array(
@@ -88,7 +90,9 @@ class RemoteIpMac implements IpMacInterface{
 		));
 	}
 
-	public function unbanIpMac($ip, $mac, $log = true){
+	public function unbanIpMac($ip, $mac){
+		$this->loggerBan->info(sprintf('Unbanning %s %s', $ip, $mac));
+
 		$this->disconnect();
 
 		$this->write(array(

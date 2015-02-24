@@ -20,18 +20,14 @@ class LocalIpMac implements IpMacInterface{
 		return $mac;
 	}
 
-	public function banIpMac($ip, $mac, $log = true){
-		if($log){
-			$this->loggerBan->info(sprintf('Banning %s %s', $ip, $mac));
-		}
+	public function banIpMac($ip, $mac){
+		$this->loggerBan->info(sprintf('Banning %s %s', $ip, $mac));
 
 		exec(sprintf('sudo /usr/sbin/ipset -D ipmacs %s,%s', $ip, $mac));
 	}
 
-	public function unbanIpMac($ip, $mac, $log = true){
-		if($log){
-			$this->loggerBan->info(sprintf('Unbanning %s %s', $ip, $mac));
-		}
+	public function unbanIpMac($ip, $mac){
+		$this->loggerBan->info(sprintf('Unbanning %s %s', $ip, $mac));
 
 		exec(sprintf('sudo /usr/sbin/ipset -A ipmacs %s,%s', $ip, $mac));
 	}

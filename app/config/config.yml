@@ -105,6 +105,10 @@ monolog:
             type:     stream
             path:     %kernel.logs_dir%/erip.log
             channels: ["erip"]
+        ban:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.log
+            channels: ["ban"]
         ban.hostel1:
             type:     stream
             path:     %kernel.logs_dir%/ban.hostel1.log
@@ -119,6 +123,7 @@ monolog:
             channels: ["ban.hostel4"]
     channels:
         - erip
+        - ban
         - ban.hostel1
         - ban.hostel2
         - ban.hostel4
