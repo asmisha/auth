@@ -34,8 +34,6 @@ class DefaultController extends Controller
 			$settingsForm = null;
 
 			$user = new User();
-			$mac = $this->get('ipmac')->getMac($request->getClientIp());
-			$user->setMac($mac);
 
 			$registerForm = $this->createForm(new UserType(), $user);
 		}

@@ -67,6 +67,29 @@ services:
         class: Hostel\MainBundle\Services\IpMac
         arguments:
             - @monolog.logger.ban
+            -
+                1: @ipmac.hostel1
+                2: @ipmac.hostel2
+                4: @ipmac.hostel4
+
+    ipmac.hostel1:
+        class: Hostel\MainBundle\Services\LocalIpMac
+        arguments:
+            - @monolog.logger.ban.hostel1
+
+    ipmac.hostel2:
+        class: Hostel\MainBundle\Services\RemoteIpMac
+        arguments:
+            - @monolog.logger.ban.hostel2
+            - %hostel2_host%
+            - %hostel2_port%
+
+    ipmac.hostel4:
+        class: Hostel\MainBundle\Services\RemoteIpMac
+        arguments:
+            - @monolog.logger.ban.hostel4
+            - %hostel4_host%
+            - %hostel4_port%
 
     # authentication event listener
     security.authentication_event_listener:

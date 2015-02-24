@@ -11,61 +11,39 @@ namespace Hostel\MainBundle\Services;
 use Hostel\MainBundle\Entity\User;
 use Monolog\Logger;
 
-class IpMac {
+class IpMac{
 	/** @var Logger */
 	private $loggerBan;
+	/** @var IpMacInterface[] */
+	private $clients;
 
-	function __construct($loggerBan)
+	function __construct($loggerBan, $clients)
 	{
 		$this->loggerBan = $loggerBan;
+		$this->clients = $clients;
 	}
 
-	public function getMac($host){
-		$output = array();
-		exec("/usr/sbin/arp -a -n | grep '${host}[^0-9]' | awk '{ print $4 }'", $output);
-		$mac = @$output[0];
-		return $mac;
+	public function getMac(User $u){
+		return @$this->clients[$u->getHostel()]->getMacByIp($u->getIp());
 	}
 
 	public function ban(User $u){
 		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-		$this->banIpMac($u->getIp(), $u->getMac(), false);
-	}
-
-	public function banIpMac($ip, $mac, $log = true){
-		if($log){
-			$this->loggerBan->info(sprintf('Banning %s %s', $ip, $mac));
-		}
-
-		exec(sprintf('sudo /usr/sbin/ipset -D ipmacs %s,%s', $ip, $mac));
+		@$this->clients[$u->getHostel()]->banIpMac($u->getIp(), $u->getMac(), false);
 	}
 
 	public function unban(User $u){
 		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-		$this->unbanIpMac($u->getIp(), $u->getMac(), false);
+		@$this->clients[$u->getHostel()]->unbanIpMac($u->getIp(), $u->getMac(), false);
 	}
 
-	public function unbanIpMac($ip, $mac, $log = true){
-		if($log){
-			$this->loggerBan->info(sprintf('Unbanning %s %s', $ip, $mac));
-		}
-
-		exec(sprintf('sudo /usr/sbin/ipset -A ipmacs %s,%s', $ip, $mac));
+	public function banIpMac($hostel, $ip, $mac){
+		@$this->clients[$hostel]->unbanIpMac($ip, $mac);
 	}
 
-	/**
-	 * Returns array [ip,mac => 0]
-	 * @return array
-	 */
-	public function listRules(){
-		exec('ipset -L | grep ","', $out);
-		if(count($out)){
-			return array_combine($out, array_fill(0, count($out), 0));
-		}else{
-			return array();
-		}
+	public function listRules($hostel){
+		return @$this->clients[$hostel]->listRules();
 	}
-
 } 

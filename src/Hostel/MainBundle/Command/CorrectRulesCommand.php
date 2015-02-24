@@ -24,37 +24,44 @@ class CorrectRulesCommand extends ContainerAwareCommand
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		/** @var IpMac $ipmac */
-		$ipmac = $this->getContainer()->get('ipmac');
-		$rules = $ipmac->listRules();
+		$hostels = array_keys($this->getContainer()->getParameter('hostel_addresses'));
 
-		/** @var EntityManager $em */
-		$em = $this->getContainer()->get('doctrine')->getManager();
+		foreach($hostels as $h) {
+			/** @var IpMac $ipmac */
+			$ipmac = $this->getContainer()->get('ipmac');
+			$rules = $ipmac->listRules($h);
 
-		/** @var User[] $users */
-		$users = $em->getRepository('HostelMainBundle:User')->findBy(array('banned' => false));
+			/** @var EntityManager $em */
+			$em = $this->getContainer()->get('doctrine')->getManager();
 
-		foreach($users as $u){
-			$k = strtoupper(sprintf('%s,%s', $u->getIp(), $u->getMac()));
-			if(isset($rules[$k])){
-				$rules[$k] = true;
-			}else{
-				$output->writeln(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
+			/** @var User[] $users */
+			$users = $em->getRepository('HostelMainBundle:User')->findBy(array(
+				'hostel' => $h,
+				'banned' => false,
+			));
 
-				$ipmac->unban($u);
+			foreach ($users as $u) {
+				$k = strtoupper(sprintf('%s,%s', $u->getIp(), $u->getMac()));
+				if (isset($rules[$k])) {
+					$rules[$k] = true;
+				} else {
+					$output->writeln(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
+
+					$ipmac->unban($u);
+				}
 			}
-		}
 
-		foreach($rules as $k=>$i){
-			if(!$i){
-				list($ip, $mac) = explode(',', $k);
+			foreach ($rules as $k => $i) {
+				if (!$i) {
+					list($ip, $mac) = explode(',', $k);
 
-				$output->writeln(sprintf('Banning %s %s', $ip, $mac));
+					$output->writeln(sprintf('Banning %s %s', $ip, $mac));
 
-				$ipmac->banIpMac($ip, $mac);
+					$ipmac->banIpMac($h, $ip, $mac);
+				}
 			}
-		}
 
-		$em->flush();
+			$em->flush();
+		}
 	}
 }
