@@ -56,7 +56,7 @@ class AuthenticationListener implements EventSubscriberInterface
 		$user = $event->getAuthenticationToken()->getUser();
 		if($user instanceof User){
 			$ip = $this->requestStack->getCurrentRequest()->getClientIp();
-			$mac = $this->ipmac->getMac($ip);
+			$mac = $this->ipmac->getMac($user);
 
 			// If user is not banned and something changed - ban him
 			if(!$user->getBanned() && (($ip && $ip !== $user->getIp()) || ($mac && $mac !== $user->getMac()))){
