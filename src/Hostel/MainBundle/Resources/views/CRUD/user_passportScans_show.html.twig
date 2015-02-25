@@ -1,0 +1,6 @@
+<th>{% block name %}{{ admin.trans(field_description.label) }}{% endblock %}</th>
+<td>
+	{% for i in object.getPassportScans %}
+		<a href="{{ i.webPath }}"><img src="{{ i.webPath|apply_filter('thumb100x100') }}" /></a>
+	{% endfor %}
+</td>

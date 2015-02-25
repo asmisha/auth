@@ -1,0 +1,191 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - 'HostelMainBundle:Form:fields.html.twig'
+    globals:
+        months:
+            ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+            en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        costMonthly: %cost_monthly%
+        costConnection: %cost_connection%
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                unix_socket: "%database_socket%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            old:
+                driver:   "%old_database_driver%"
+                host:     "%old_database_host%"
+                port:     "%old_database_port%"
+                unix_socket: "%old_database_socket%"
+                dbname:   "%old_database_name%"
+                user:     "%old_database_user%"
+                password: "%old_database_password%"
+                charset:  UTF8
+
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
+                    HostelMainBundle: ~
+                dql:
+                    numeric_functions:
+                        REGEXP: Hostel\MainBundle\DQL\RegexpFunction
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+monolog:
+    handlers:
+        erip:
+            type:     stream
+            path:     %kernel.logs_dir%/erip.log
+            channels: ["erip"]
+        ban:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.log
+            channels: ["ban"]
+        ban.hostel1:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.hostel1.log
+            channels: ["ban.hostel1"]
+        ban.hostel2:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.hostel2.log
+            channels: ["ban.hostel2"]
+        ban.hostel4:
+            type:     stream
+            path:     %kernel.logs_dir%/ban.hostel4.log
+            channels: ["ban.hostel4"]
+    channels:
+        - erip
+        - ban
+        - ban.hostel1
+        - ban.hostel2
+        - ban.hostel4
+
+sonata_admin:
+    title: Управление заявками
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            EDIT: EDIT
+            LIST: LIST
+            CREATE: CREATE
+            VIEW: VIEW
+            DELETE: DELETE
+            EXPORT: EXPORT
+            OPERATOR: OPERATOR
+            MASTER: MASTER
+    templates:
+        layout: HostelMainBundle::admin_layout.html.twig
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        # Your other blocks
+
+sonata_user:
+    security_acl: true
+    manager_type: orm # can be orm or mongodb
+    class:
+        user: Hostel\MainBundle\Entity\User
+    admin:
+        user:
+            class: Hostel\MainBundle\Admin\UserAdmin
+
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    #user_class:     Application\Sonata\UserBundle\Entity\User
+    user_class:     Hostel\MainBundle\Entity\User
+
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+
+    service:
+        user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+avalanche_imagine:
+    source_root:  %kernel.root_dir%/../web
+    web_root:     %kernel.root_dir%/../web
+    cache_prefix: cache
+    driver:       gd
+    filters:
+        thumb100x100:
+            type:    thumbnail
+            options: { size: [100, 100], mode: outbound }
+
+parameters:
+#    sonata.user.admin.user.class: Hostel\MainBundle\Admin\UserAdmin
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap

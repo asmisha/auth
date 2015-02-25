@@ -1,0 +1,16 @@
+Hostel\MainBundle\Entity\File:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: '20'
+        upload_date:
+            type: datetime
+    lifecycleCallbacks: {  }

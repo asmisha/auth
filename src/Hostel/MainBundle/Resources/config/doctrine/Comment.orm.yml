@@ -1,0 +1,32 @@
+Hostel\MainBundle\Entity\Comment:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        text:
+            type: text
+            nullable: true
+        date:
+            type: datetime
+        oldStatus:
+            type: integer
+            nullable: true
+        newStatus:
+            type: integer
+            nullable: true
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+        ticket:
+            targetEntity: Hostel\MainBundle\Entity\Ticket
+            inversedBy: comments
+            joinColumn:
+                onDelete: CASCADE
+
+    lifecycleCallbacks: {  }

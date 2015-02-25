@@ -1,0 +1,107 @@
+parameters:
+
+services:
+    subscriber.default:
+        class: Hostel\MainBundle\Services\DefaultSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    subscriber.user:
+        class: Hostel\MainBundle\Services\UserSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    subscriber.payment:
+        class: Hostel\MainBundle\Services\PaymentSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    subscriber.locale:
+        class: Hostel\MainBundle\Services\LocaleSubscriber
+        arguments: [%locale%]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    sonata.admin.ticket:
+        class: Hostel\MainBundle\Admin\TicketAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Администрирование", label: "Заявки", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
+        arguments:
+            - ~
+            - Hostel\MainBundle\Entity\Ticket
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminTicket]]
+
+    sonata.admin.payment:
+        class: Hostel\MainBundle\Admin\PaymentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Администрирование", label: "Оплаты", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
+        arguments:
+            - ~
+            - Hostel\MainBundle\Entity\Payment
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminPayment]]
+
+    twig.security_extension:
+        class: Hostel\MainBundle\Services\Twig\SecurityExtension
+        arguments: [@form.csrf_provider, @request_stack]
+        tags:
+            - { name: twig.extension }
+
+    erip:
+        class: Hostel\MainBundle\Services\Erip
+        arguments:
+            - %raschet_ftp_host%
+            - %raschet_ftp_user%
+            - %raschet_ftp_password%
+            - @monolog.logger.erip
+            - @ijanki_ftp
+            - @doctrine.orm.entity_manager
+
+    ipmac:
+        class: Hostel\MainBundle\Services\IpMac
+        arguments:
+            - @monolog.logger.ban
+            -
+                1: @ipmac.hostel1
+                2: @ipmac.hostel2
+                4: @ipmac.hostel4
+
+    ipmac.hostel1:
+        class: Hostel\MainBundle\Services\LocalIpMac
+        arguments:
+            - @monolog.logger.ban.hostel1
+
+    ipmac.hostel2:
+        class: Hostel\MainBundle\Services\RemoteIpMac
+        arguments:
+            - @monolog.logger.ban.hostel2
+            - %hostel2_host%
+            - %hostel2_port%
+
+    ipmac.hostel4:
+        class: Hostel\MainBundle\Services\RemoteIpMac
+        arguments:
+            - @monolog.logger.ban.hostel4
+            - %hostel4_host%
+            - %hostel4_port%
+
+    # authentication event listener
+    security.authentication_event_listener:
+        class: Hostel\MainBundle\Services\AuthenticationListener
+        arguments:
+            - @request_stack
+            - @doctrine.orm.entity_manager
+            - @ipmac
+        tags:
+            - { name: kernel.event_subscriber }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

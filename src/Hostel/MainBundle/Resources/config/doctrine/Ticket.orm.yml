@@ -1,0 +1,32 @@
+Hostel\MainBundle\Entity\Ticket:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        description:
+            type: text
+        status:
+            type: integer
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+            inversedBy: tickets
+
+    oneToMany:
+        comments:
+            targetEntity: Hostel\MainBundle\Entity\Comment
+            mappedBy: ticket
+            orderBy: { 'date': 'DESC' }
+
+    lifecycleCallbacks: {  }

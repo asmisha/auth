@@ -1,0 +1,88 @@
+Hostel\MainBundle\Entity\User:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        middlename:
+            type: string
+            length: '50'
+        hostel:
+            type: integer
+            nullable: true
+        room:
+            type: string
+            length: '10'
+        roomPattern:
+            type: string
+            length: '50'
+            nullable: true
+        money:
+            type: integer
+        groupNumber:
+            type: string
+            length: 10
+        connectionPayed:
+            type: boolean
+        isAdmin:
+            type: boolean
+        mac:
+            type: string
+            length: 20
+            nullable: true
+        ip:
+            type: string
+            length: 20
+            nullable: true
+        banned:
+            type: boolean
+        checked:
+            type: boolean
+        vkLink:
+            type: string
+            nullable: true
+        skype:
+            type: string
+            nullable: true
+        phoneNumber:
+            type: string
+            nullable: true
+        position:
+            type: string
+            nullable: true
+        actualEmail:
+            type: string
+            nullable: true
+
+    oneToMany:
+        tickets:
+            targetEntity: Hostel\MainBundle\Entity\Ticket
+            mappedBy: user
+        payments:
+            targetEntity: Hostel\MainBundle\Entity\Payment
+            mappedBy: user
+            cascade: [persist]
+        paymentRequests:
+            targetEntity: Hostel\MainBundle\Entity\PaymentRequest
+            mappedBy: user
+
+    manyToMany:
+        passportScans:
+            targetEntity: Hostel\MainBundle\Entity\File
+            cascade: [persist]
+            joinTable:
+                name: user_passportScans
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    file_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+
+    lifecycleCallbacks: {  }

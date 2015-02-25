@@ -1,0 +1,15 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+
+{% block field%}
+	{% if object.status == constant('Hostel\\MainBundle\\Entity\\Ticket::STATUS_NEW') %}
+		{% set class = 'label label-info' %}
+	{% elseif object.status == constant('Hostel\\MainBundle\\Entity\\Ticket::STATUS_OPENED') %}
+		{% set class = 'label label-primary' %}
+	{% elseif object.status == constant('Hostel\\MainBundle\\Entity\\Ticket::STATUS_CLOSED') %}
+		{% set class = 'label label-success' %}
+	{% endif %}
+	<span class="{{ class }}">
+		{{ object.status|trans({}, 'TicketStatus') }}
+	</span
+{% endblock %}

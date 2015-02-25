@@ -1,0 +1,26 @@
+th{ vertical-align: middle !important; }
+.table-condensed td, .table-condensed th {
+	font-size: 12px !important;
+	line-height: 12px !important;
+	padding: 2px !important;
+}
+.table-condensed .btn {
+	font-size: 12px !important;
+	line-height: 12px !important;
+}
+.table-condensed .btn .caret {
+	margin-top: 5px;
+}
+
+.jumbotron {background: none !important; padding: 30px 0px !important;}
+
+.comment{margin-bottom: 10px;background: #fafafa;}
+.comment p{font-size: 18px;}
+
+.faq.shadowed a{background: #fff;z-index:10;}
+.faq .tooltip{display: none !important;}
+.faq.shadowed .tooltip{width:250px;display: block !important;}
+.faq.shadowed .tooltip-inner{max-width:250px;}
+
+#init-shadow{position: fixed;display: none;top:0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);z-index: 5;}
+#init-shadow p{position: absolute;}

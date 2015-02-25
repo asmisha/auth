@@ -1,0 +1,11 @@
+{% extends 'HostelMainBundle::layout.html.twig' %}
+
+{% block content %}
+	<div class="jumbotron">
+		<p>
+			{{ 'Вы были успешно зарегистрированы'|trans }}!<br>
+			{{ 'Ваш номер договора для оплаты в ЕРИП'|trans }}: {{ user.id }}
+			<a href="{{ path('/') }}">{{ 'Авторизация'|trans }}</a>
+		</p>
+	</div>
+{% endblock %}

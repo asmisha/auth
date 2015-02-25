@@ -1,0 +1,32 @@
+Hostel\MainBundle\Entity\PaymentRequest:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        year:
+            type: integer
+            nullable: true
+        month:
+            type: integer
+            nullable: true
+        connection:
+            type: boolean
+        createdAt:
+            type: datetime
+        handled:
+            type: boolean
+        error:
+            type: string
+            length: 255
+            nullable: true
+
+    manyToOne:
+        user:
+            targetEntity: Hostel\MainBundle\Entity\User
+            inversedBy: paymentRequests
+    lifecycleCallbacks: {  }

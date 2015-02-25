@@ -1,0 +1,50 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_socket:     /var/run/mysqld/mysqld.sock
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    old_database_driver: pdo_mysql
+    old_database_host: 127.0.0.1
+    old_database_port: ~
+    old_database_socket: ~
+    old_database_name: hna
+    old_database_user: root
+    old_database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    hostel_addresses:
+        1: "Минск, ул. Я. Коласа, д. 28"
+        2: "Минск, ул. Л. Беды, д. 4"
+        3: "Минск, ул. Л. Беды, д. 2б"
+        4: "Минск, ул. Дзержинского, д. 95"
+
+    cost_monthly: 15000
+    cost_connection: 70000
+
+    raschet_code: 32100000
+    raschet_account_id: 600111111
+    raschet_account_number: 3012000000000
+    raschet_bank_code: 795
+    raschet_service_number: 1
+    raschet_currency_code: 974
+
+    raschet_ftp_host: localhost
+    raschet_ftp_user: ~
+    raschet_ftp_password: ~
+    raschet_ftp_upload_dir: tmp/in
+
+    hostel2_host: ~
+    hostel2_port: ~
+    hostel4_host: ~
+    hostel4_port: ~

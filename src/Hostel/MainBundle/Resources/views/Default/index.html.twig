@@ -1,0 +1,209 @@
+{% extends 'HostelMainBundle::layout.html.twig' %}
+
+{% block scripts %}
+	{#<script type="text/javascript">
+		(function(){
+			var $collectionHolder;
+
+			// setup an "add a tag" link
+			var $addLink = $('<a href="#" class="add-link">' + 'Add' + '</a>');
+			var $newLinkLi = $('<div></div>').append($addLink);
+
+			jQuery(document).ready(function() {
+				// Get the ul that holds the collection of tags
+				$collectionHolder = $('#hostel_mainbundle_user_passportScans');
+
+//			$collectionHolder.on('click', '.delete', function(e) {
+//				$(this).closest('li').remove();
+//
+//				return false;
+//			});
+
+				// add the "add a tag" anchor and li to the tags ul
+				$collectionHolder.append($newLinkLi);
+
+				// count the current form inputs we have (e.g. 2), use that as the new
+				// index when inserting a new item (e.g. 2)
+				var count = {{ count | default(0) | json_encode | raw }};
+				$collectionHolder.data('index', count ? count : $collectionHolder.find(':input').length);
+
+				$addLink.on('click', function(e) {
+					// prevent the link from creating a "#" on the URL
+					e.preventDefault();
+
+					// add a new tag form (see next code block)
+					addForm($collectionHolder, $newLinkLi);
+				});
+			});
+
+			function addForm($collectionHolder, $newLinkLi) {
+				// Get the data-prototype explained earlier
+				var prototype = $collectionHolder.data('prototype');
+
+				// get the new index
+				var index = $collectionHolder.data('index');
+
+				// Replace '__name__' in the prototype's HTML to
+				// instead be a number based on how many items we have
+				var newForm = prototype.replace(/__name__/g, index);
+
+				// increase the index with one for the next item
+				$collectionHolder.data('index', index + 1);
+
+				var $newFormLi;
+				// Display the form in the page in an li, before the "Add a tag" link li
+				$newFormLi = $('<div></div>').append(newForm);
+
+				$newLinkLi.before($newFormLi);
+			}
+		})()
+	</script>
+	<style>
+		#hostel_mainbundle_user_passportScans label{display: none;}
+	</style>#}
+{% endblock %}
+
+{% block content %}
+	<div class="tab-content">
+		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+			<div class="tab-pane jumbotron active" id="cabinet">
+				<div class="col-lg-10" style="float: none;margin: 0 auto;">
+					{% include 'HostelMainBundle:Block:cabinet.html.twig' %}
+				</div>
+			</div>
+		{% else %}
+			<div class="tab-pane jumbotron active" id="login">
+				<div class="col-lg-5" style="float: none;margin: 0 auto;">
+					{% include 'HostelMainBundle:Block:loginForm.html.twig' %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if settingsForm %}
+			<div class="tab-pane jumbotron" id="settings">
+				<div class="row">
+					<div class="col-lg-5" style="float: none;margin: 0 auto;">
+						{{ form(settingsForm) }}
+						{% if app.request.query.has('success') %}
+							<h3>{{ 'Сохранено'|trans }}</h3>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		{% if registerForm %}
+			<div class="tab-pane jumbotron" id="register">
+				<div class="row">
+					<div class="col-lg-5" style="float: none;margin: 0 auto;">
+						{{ form_start(registerForm) }}
+						{{ form_row(registerForm.username) }}
+						{{ form_row(registerForm.plainPassword) }}
+						{{ form_end(registerForm) }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		{% if ticketForm %}
+			<div class="tab-pane jumbotron" id="tickets">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3>{{ 'Мои заявки' | trans({}) }}</h3>
+						<table class="table table-bordered">
+							<tr>
+								<th>{{ 'Date'|trans({}, 'Ticket') }}</th>
+								<th>{{ 'Title'|trans({}, 'Ticket') }}</th>
+								<th>{{ 'Status'|trans({}, 'Ticket') }}</th>
+								<th></th>
+							</tr>
+							{% for i in app.user.getTickets %}
+								<tr>
+									<td>{{ i.date|localizeddate('long', 'long', app.request.locale, null, 'dd MMMM Y HH:mm') }}</td>
+									<td>{{ i.title }}</td>
+									<td>{{ i.status|trans({}, 'TicketStatus') }}</td>
+									<td>
+										<a class="btn" href="{{ path('ticket', {id: i.id}) }}">{{ 'Open'|trans({}, 'TicketStatus') }}</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+						{{ form(ticketForm) }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="tab-pane jumbotron" id="faq">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Приветствую, Вы находитесь на сайте авторизации в локальной сети первого общежития. Ниже приведен список частозадаваемых вопросов и ответы на них.</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Мне нужен интернет, что мне делать?</div>
+						<div class="panel-body">
+							Для того, чтобы подключить интернет, Вам нужно зарегистрироваться в локальной сети, оплатить ее использование, после зарегистрироваться у интернет-провайдера общежития.
+							Зарегистрироваться можно, заполнив форму во вкладке "Регистрация", расположенной чуть выше. В течение часа появится возможность оплатить сеть через систему ЕРИП.
+							После оплаты в течение часа деньги будут зачислены на лицевой счет, после чего нужно авторизоваться во вкладке "Авторизация" и нажать кнопку "Оплатить" напротив оплаты подключения и текущего месяца.
+							После этого сеть заработает в течение нескольких минут и можно будет подключать интернет у провайдера.
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Как платить за сеть?</div>
+						<div class="panel-body">
+							Оплата производится через систему ЕРИП (Система "Расчет" => г. Минск => Образование и развитие => ВУЗы => БГУИР => Молодежный центр).
+							Стоимость подключения сети: {{ costConnection }}р.
+							Стоимость одного месяца использования сети: {{ costMonthly }}р.
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Я уже пользовался сетью, а сейчас меня не пускает с моим логином и паролем, что мне делать?</div>
+						<div class="panel-body">
+							Если вы уже хоть раз авторизовывались в новой системе - обратитесь к Вашему системному администратору для восстановления пароля.
+							Если вы здесь впервые, но регистрировались ранее - регистрируйтесь заново, после чего обратитесь к Вашему системному администратору для переноса оплаты за подключения. При этом обязательно укажите старый номер договора и логин в новой системе.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-pane jumbotron" id="admins">
+			<div class="row">
+				<div class="col-lg-12">
+					<table class="table table-striped">
+						<tr>
+							<th>{{ 'Общежитие'|trans }}</th>
+							<th>{{ 'Этажи'|trans }}</th>
+							<th>{{ 'ФИО'|trans }}</th>
+							<th>{{ 'Комната'|trans }}</th>
+							<th>vk</th>
+							<th>skype</th>
+							<th>E-mail</th>
+							<th>{{ 'Телефон'|trans }}</th>
+						</tr>
+						{% for i in admins %}
+							<tr>
+								<td>{{ i.hostel|trans({}, 'hostels') }}</td>
+								<td>{{ i.position }}</td>
+								<td>{{ i.lastname }} {{ i.firstname }}</td>
+								<td>{{ i.room }}</td>
+								<td>
+									{% if i.vkLink %}
+										<a href="{{ i.vkLink }}" target="_blank">{{ i.vkLink }}</a>
+									{% endif %}
+								</td>
+								<td>{{ i.skype|default('') }}</td>
+								<td>
+									{% if i.actualEmail %}
+										<a href="mailto:{{ i.actualEmail }}" target="_blank">{{ i.actualEmail }}</a>
+									{% endif %}
+								</td>
+								<td>{{ i.phoneNumber|default('') }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "form_div_layout.html.twig" %}
+
+{% block form_row %}
+	{% spaceless %}
+		<div class="form-group">
+			{{ form_label(form) }}
+			{{ form_widget(form, {attr: {class: 'form-control'} }) }}
+
+			{#<input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
+			{{ form_errors(form) }}
+		</div>
+	{% endspaceless %}
+{% endblock form_row %}
+
+{% block collection_widget %}
+	{% spaceless %}
+		{% set attr = attr|merge({class: ''}) %}
+		{{ parent() }}
+	{% endspaceless %}
+{% endblock collection_widget %}
+
+{% block submit_widget %}
+	{% spaceless %}
+		{% set type = type|default('submit') %}
+		{% set attr = attr|merge({class: 'btn btn-primary'}) %}
+		{{ block('button_widget') }}
+	{% endspaceless %}
+{% endblock submit_widget %}
+
+{% block agree_with_terms_row %}
+	<div id="{{ id }}-container">
+		<label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+			<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+			Я согласен с условиями <a href="{{ path('terms') }}" onclick="$.fancybox.open([{href: '#popup-terms'}], {minWidth: 500}); return false;" target="_blank">лицензионного соглашения</a>
+		</label>
+		{{ form_errors(form) }}
+	</div>
+{% endblock %}
