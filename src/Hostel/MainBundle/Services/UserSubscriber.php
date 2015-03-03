@@ -54,10 +54,15 @@ class UserSubscriber implements EventSubscriber {
 		$userManager = $this->container->get('fos_user.user_manager');
 		$userManager->updatePassword($user);
 
+		$isAdmin = $user->getIsAdmin();
 		$user->setIsAdmin(false);
 		foreach($user->getRoles() as $r){
 			if(strpos($r, 'ADMIN') !== false){
 				$user->setIsAdmin(true);
+				if(!$isAdmin){
+					$user->setShowOnMainPage(true);
+				}
+
 				break;
 			}
 		}

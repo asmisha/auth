@@ -23,6 +23,7 @@ form.label_position: Должность
 form.label_skype: Skype
 form.label_phone_number: Телефон
 form.label_actual_email: E-mail
+form.label_show_on_main_page: Показывать в списке админов
 
 show.label_id: Id
 show.label_middlename: Отчество

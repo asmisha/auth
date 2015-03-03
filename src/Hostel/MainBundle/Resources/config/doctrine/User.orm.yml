@@ -57,6 +57,8 @@ Hostel\MainBundle\Entity\User:
         actualEmail:
             type: string
             nullable: true
+        showOnMainPage:
+            type: boolean
 
     oneToMany:
         tickets:

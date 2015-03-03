@@ -770,4 +770,32 @@ class User extends BaseUser
     {
         return $this->actualEmail;
     }
+    /**
+     * @var boolean
+     */
+    private $showOnMainPage = false;
+
+
+    /**
+     * Set showOnMainPage
+     *
+     * @param boolean $showOnMainPage
+     * @return User
+     */
+    public function setShowOnMainPage($showOnMainPage)
+    {
+        $this->showOnMainPage = $showOnMainPage;
+
+        return $this;
+    }
+
+    /**
+     * Get showOnMainPage
+     *
+     * @return boolean 
+     */
+    public function getShowOnMainPage()
+    {
+        return $this->showOnMainPage;
+    }
 }

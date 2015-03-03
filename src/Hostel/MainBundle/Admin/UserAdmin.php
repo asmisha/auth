@@ -130,6 +130,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 				->add('phoneNumber', null, array('required' => false))
 				->add('roomPattern', null, array('required' => false))
 				->add('position', null, array('required' => false))
+				->add('showOnMainPage', null, array('required' => false))
 				;
 		}
 	}

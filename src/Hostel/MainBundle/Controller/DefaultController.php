@@ -89,7 +89,7 @@ class DefaultController extends Controller
 		/** @var QueryBuilder $qb */
 		$qb = $this->getDoctrine()->getRepository('HostelMainBundle:User')->createQueryBuilder('u');
 		$admins = $qb
-			->where('u.isAdmin = 1')
+			->where('u.isAdmin = 1 AND u.showOnMainPage = 1')
 			->orderBy('u.hostel')
 			->addOrderBy('u.position')
 			->getQuery()
