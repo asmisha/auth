@@ -110,9 +110,15 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h3>{{ 'Мои заявки' | trans({}) }}</h3>
+
+						{% set showUser = is_granted('ROLE_ADMIN') %}
+
 						<table class="table table-bordered">
 							<tr>
 								<th>{{ 'Date'|trans({}, 'Ticket') }}</th>
+								{% if showUser %}
+									<th>{{ 'User'|trans({}, 'Ticket') }}</th>
+								{% endif %}
 								<th>{{ 'Title'|trans({}, 'Ticket') }}</th>
 								<th>{{ 'Status'|trans({}, 'Ticket') }}</th>
 								<th></th>
@@ -120,10 +126,21 @@
 							{% for i in tickets %}
 								<tr>
 									<td>{{ i.date|localizeddate('long', 'long', app.request.locale, null, 'dd MMMM Y HH:mm') }}</td>
+									{% if showUser %}
+										<td>
+											{{ i.user.firstname }} {{ i.user.lastname }},
+											{{ i.user.room }},
+											{% if i.user.banned %}
+												<span class="label label-danger">{{ 'Забанен'|trans }}</span>
+											{% else %}
+												<span class="label label-success">{{ 'Разбанен'|trans }}</span>
+											{% endif %}
+										</td>
+									{% endif %}
 									<td>{{ i.title }}</td>
 									<td>{{ i.status|trans({}, 'TicketStatus') }}</td>
 									<td>
-										<a class="btn" href="{{ path('ticket', {id: i.id}) }}">{{ 'Open'|trans({}, 'TicketStatus') }}</a>
+										<a class="btn" href="{{ path('ticket', {id: i.id}) }}">{{ 'Открыть'|trans }}</a>
 									</td>
 								</tr>
 							{% endfor %}
