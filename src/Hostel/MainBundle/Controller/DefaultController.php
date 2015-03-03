@@ -22,11 +22,13 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 		if($this->getUser()){
+			$user = $this->getUser();
+
 			$ticket = new Ticket();
-			$ticket->setUser($this->getUser());
+			$ticket->setUser($user);
 
 			$ticketForm = $this->createForm(new TicketType(), $ticket);
-			$settingsForm = $this->createForm(new SettingsType(), $this->getUser());
+			$settingsForm = $this->createForm(new SettingsType(), $user);
 
 			$registerForm = null;
 		}else{
@@ -96,11 +98,27 @@ class DefaultController extends Controller
 			->getResult()
 			;
 
+	    if($this->isGranted('ROLE_ADMIN')){
+		    /** @var QueryBuilder $qb */
+		    $qb = $this->getDoctrine()->getRepository('HostelMainBundle:Ticket')->createQueryBuilder('t');
+		    $tickets = $qb
+			    ->join('t.user', 'u')
+			    ->andWhere('REGEXP(u.room, :regex) = 1 AND u.hostel = :hostel')
+			    ->setParameter('regex', $user->getRoomPattern())
+			    ->setParameter('hostel', $user->getHostel())
+			    ->getQuery()
+			    ->getResult()
+		    ;
+	    }else{
+		    $tickets = $user->getTickets();
+	    }
+
         return $this->render('HostelMainBundle:Default:index.html.twig', array(
 			'ticketForm' => $ticketForm ? $ticketForm->createView() : null,
 			'registerForm' => $registerForm ? $registerForm->createView() : null,
 			'settingsForm' => $settingsForm ? $settingsForm->createView() : null,
 			'admins' => $admins,
+			'tickets' => $tickets,
 		));
     }
     public function registrationSuccessAction()
