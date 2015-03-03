@@ -106,6 +106,8 @@ class DefaultController extends Controller
 			    ->andWhere('REGEXP(u.room, :regex) = 1 AND u.hostel = :hostel')
 			    ->setParameter('regex', $user->getRoomPattern())
 			    ->setParameter('hostel', $user->getHostel())
+			    ->orderBy('t.date', 'DESC')
+			    ->setMaxResults(50)
 			    ->getQuery()
 			    ->getResult()
 		    ;

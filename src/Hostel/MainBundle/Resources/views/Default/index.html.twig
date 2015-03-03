@@ -117,7 +117,7 @@
 								<th>{{ 'Status'|trans({}, 'Ticket') }}</th>
 								<th></th>
 							</tr>
-							{% for i in app.user.getTickets %}
+							{% for i in tickets %}
 								<tr>
 									<td>{{ i.date|localizeddate('long', 'long', app.request.locale, null, 'dd MMMM Y HH:mm') }}</td>
 									<td>{{ i.title }}</td>
