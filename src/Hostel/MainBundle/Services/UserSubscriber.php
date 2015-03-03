@@ -62,7 +62,6 @@ class UserSubscriber implements EventSubscriber {
 				if(!$isAdmin){
 					$user->setShowOnMainPage(true);
 				}
-
 				break;
 			}
 		}
