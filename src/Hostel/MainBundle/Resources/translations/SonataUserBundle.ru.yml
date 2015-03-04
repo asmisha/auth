@@ -11,6 +11,8 @@ list.label_banned: Забанен
 filter.label_enabled: Подтвержден
 filter.label_is_admin: Администратор
 filter.label_banned: Забанен
+filter.label_ip: IP
+filter.label_mac: MAC
 
 form.label_middlename: Отчество
 form.label_hostel: Общежитие

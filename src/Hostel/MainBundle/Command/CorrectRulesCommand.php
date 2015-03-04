@@ -53,7 +53,11 @@ class CorrectRulesCommand extends ContainerAwareCommand
 
 			foreach ($rules as $k => $i) {
 				if (!$i) {
-					list($ip, $mac) = explode(',', $k);
+					$data = explode(',', $k);
+					if(count($data) != 2){
+						continue;
+					}
+					list($ip, $mac) = $data;
 
 					$output->writeln(sprintf('Banning %s %s', $ip, $mac));
 
