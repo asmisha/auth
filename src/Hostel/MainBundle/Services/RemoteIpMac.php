@@ -34,7 +34,7 @@ class RemoteIpMac implements IpMacInterface{
 			return null;
 		}
 
-		return json_decode(socket_read($this->sock, 200000));
+		return json_decode(socket_read($this->sock, 200000), true);
 	}
 
 	private function write($data){

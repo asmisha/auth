@@ -145,6 +145,8 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('username')
 			->add('firstname')
 			->add('lastname')
+			->add('ip')
+			->add('mac')
 			->add('banned')
 			->add('isAdmin')
 		;
