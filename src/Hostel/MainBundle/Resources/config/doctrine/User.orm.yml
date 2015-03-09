@@ -68,7 +68,7 @@ Hostel\MainBundle\Entity\User:
             targetEntity: Hostel\MainBundle\Entity\Payment
             mappedBy: user
             cascade: [persist]
-            orderBy: { 'year': 'ASC, 'month': 'ASC' }
+            orderBy: { 'year': 'ASC', 'month': 'ASC' }
         paymentRequests:
             targetEntity: Hostel\MainBundle\Entity\PaymentRequest
             mappedBy: user
