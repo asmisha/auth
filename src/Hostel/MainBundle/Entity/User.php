@@ -107,10 +107,7 @@ class User extends BaseUser
     }
 
 	public function __toString(){
-		if($this->firstname)
-			return $this->firstname.' '.$this->lastname;
-		else
-			return $this->username;
+		return sprintf('%s, %s %s', $this->id, $this->firstname, $this->lastname);
 	}
     /**
      * @var \Doctrine\Common\Collections\Collection

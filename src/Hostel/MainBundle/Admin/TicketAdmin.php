@@ -43,6 +43,7 @@ class TicketAdmin extends Admin{
 			->addIdentifier('id', null, array('route' => array('name' => 'show')))
 			->add('title')
 			->add('description')
+			->add('user')
 			->add('user.room')
 			->add('date')
 			->add('status', 'text', array(
