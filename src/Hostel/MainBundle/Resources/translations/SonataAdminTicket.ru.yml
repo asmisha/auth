@@ -7,7 +7,7 @@ form.label_status: Статус
 list.label_id: Id
 list.label_title: Описание
 list.label_description: Подробное описание
-list.label_user_room: Комната
+list.label_user: Пользователь
 list.label_date: Дата создания
 list.label_status: Статус
 list.label__action: Действия

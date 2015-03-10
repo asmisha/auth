@@ -44,7 +44,6 @@ class TicketAdmin extends Admin{
 			->add('title')
 			->add('description')
 			->add('user')
-			->add('user.room')
 			->add('date')
 			->add('status', 'text', array(
 				'template' => 'HostelMainBundle:CRUD:ticket_list_status.html.twig'

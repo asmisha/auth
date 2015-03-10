@@ -107,7 +107,7 @@ class User extends BaseUser
     }
 
 	public function __toString(){
-		return sprintf('%s, %s %s', $this->id, $this->firstname, $this->lastname);
+		return sprintf('%s, %s %s, %d-%s', $this->id, $this->firstname, $this->lastname, $this->hostel, $this->room);
 	}
     /**
      * @var \Doctrine\Common\Collections\Collection
