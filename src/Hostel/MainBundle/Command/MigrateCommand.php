@@ -52,7 +52,7 @@ class MigrateCommand extends ContainerAwareCommand
 			$user->setGroupNumber($u['group']);
 			$user->setRoom($u['block'].$u['room']);
 			$user->setCreatedAt(new \DateTime($u['register']));
-			$user->setHostel(1);
+			$user->setHostel(4);
 			$user->setConnectionPayed($u['connect']);
 
 			for($i = 1; $i <= 12; $i++){
