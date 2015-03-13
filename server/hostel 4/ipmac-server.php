@@ -6,7 +6,7 @@ set_time_limit(0);
 
 function writeLog($s){
 	$s = sprintf("%s: %s\n", date('r'), $s);
-//	echo $s;
+	file_put_contents('/var/log/ipmac-server.log', $s, FILE_APPEND);
 }
 
 class Server{
@@ -20,12 +20,12 @@ class Server{
 				echo "Не удалось выполнить socket_create(): причина: " . socket_strerror(socket_last_error()) . "\n";
 				return false;
 			}
-	
+
 			if (socket_bind($sock, $this->address, $this->port) === false) {
 				echo "Не удалось выполнить socket_bind(): причина: " . socket_strerror(socket_last_error($sock)) . "\n";
 				return false;
 			}
-	
+
 			if (socket_listen($sock, 5) === false) {
 				echo "Не удалось выполнить socket_listen(): причина: " . socket_strerror(socket_last_error($sock)) . "\n";
 				return false;
@@ -99,6 +99,9 @@ function getMac($host){
 	$output = array();
 	exec("arp -a -n | grep '${host}[^0-9]' | awk '{ print $4 }'", $output);
 	$mac = @$output[0];
+
+	writeLog(sprintf('Getting mac of %s: %s', $host, $mac));
+
 	return $mac;
 }
 
