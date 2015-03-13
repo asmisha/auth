@@ -75,7 +75,11 @@ class RemoteIpMac implements IpMacInterface{
 			'ip' => $ip,
 		));
 
-		return $this->read();
+		$mac = $this->read();
+
+		$this->loggerBan->info(sprintf('Getting mac by ip %s: %s', $ip, $mac));
+
+		return $mac;
 	}
 
 	public function banIpMac($ip, $mac){
