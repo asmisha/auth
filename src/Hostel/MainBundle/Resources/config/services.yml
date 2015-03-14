@@ -69,7 +69,7 @@ services:
             - @monolog.logger.ban
             -
                 1: @ipmac.hostel1
-                2: @ipmac.hostel2
+                3: @ipmac.hostel3
                 4: @ipmac.hostel4
 
     ipmac.hostel1:
@@ -77,12 +77,12 @@ services:
         arguments:
             - @monolog.logger.ban.hostel1
 
-    ipmac.hostel2:
+    ipmac.hostel3:
         class: Hostel\MainBundle\Services\RemoteIpMac
         arguments:
-            - @monolog.logger.ban.hostel2
-            - %hostel2_host%
-            - %hostel2_port%
+            - @monolog.logger.ban.hostel3
+            - %hostel3_host%
+            - %hostel3_port%
 
     ipmac.hostel4:
         class: Hostel\MainBundle\Services\RemoteIpMac

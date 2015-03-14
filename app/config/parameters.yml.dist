@@ -44,7 +44,7 @@ parameters:
     raschet_ftp_password: ~
     raschet_ftp_upload_dir: tmp/in
 
-    hostel2_host: ~
-    hostel2_port: ~
+    hostel3_host: ~
+    hostel3_port: ~
     hostel4_host: ~
     hostel4_port: ~
