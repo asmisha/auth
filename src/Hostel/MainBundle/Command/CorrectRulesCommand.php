@@ -37,6 +37,17 @@ class CorrectRulesCommand extends ContainerAwareCommand
 			/** @var User[] $users */
 			$users = $em->getRepository('HostelMainBundle:User')->findBy(array(
 				'hostel' => $h,
+				'mac' => null,
+			));
+
+			foreach($users as $u){
+				$u->setMac($ipmac->getMac($u));
+			}
+			$em->flush();
+
+			/** @var User[] $users */
+			$users = $em->getRepository('HostelMainBundle:User')->findBy(array(
+				'hostel' => $h,
 				'banned' => false,
 			));
 

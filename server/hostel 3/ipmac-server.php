@@ -119,7 +119,7 @@ function unbanIpMac($ip, $mac){
 
 function listRules(){
 	writeLog(sprintf('Listing rules'));
-	exec('/usr/sbin/ipset -L | grep ","', $out);
+	exec('/usr/sbin/ipset -L | grep "," | grep 172', $out);
 	if(count($out)){
 		return array_combine($out, array_fill(0, count($out), 0));
 	}else{
