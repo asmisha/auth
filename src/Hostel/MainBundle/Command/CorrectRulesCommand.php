@@ -35,10 +35,12 @@ class CorrectRulesCommand extends ContainerAwareCommand
 			$em = $this->getContainer()->get('doctrine')->getManager();
 
 			/** @var User[] $users */
-			$users = $em->getRepository('HostelMainBundle:User')->findBy(array(
-				'hostel' => $h,
-				'mac' => null,
-			));
+			$users = $em->getRepository('HostelMainBundle:User')->createQueryBuilder('u')
+				->where('u.hostel = :hostel AND u.ip IS NOT NULL AND u.mac IS NULL')
+				->setParameter('hostel', $h)
+				->getQuery()
+				->getResult()
+			;
 
 			foreach($users as $u){
 				$u->setMac($ipmac->getMac($u));
