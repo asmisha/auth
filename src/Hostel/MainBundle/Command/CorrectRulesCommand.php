@@ -46,7 +46,10 @@ class CorrectRulesCommand extends ContainerAwareCommand
 				if($mac = $ipmac->getMac($u)){
 					$u->setMac($mac);
 				}else{
-					$u->setIp(null);
+					$u
+						->setIp(null)
+						->setBanned(true)
+					;
 				}
 			}
 			$em->flush();
