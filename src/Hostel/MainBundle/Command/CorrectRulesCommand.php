@@ -43,7 +43,11 @@ class CorrectRulesCommand extends ContainerAwareCommand
 			;
 
 			foreach($users as $u){
-				$u->setMac($ipmac->getMac($u));
+				if($mac = $ipmac->getMac($u)){
+					$u->setMac($mac);
+				}else{
+					$u->setIp(null);
+				}
 			}
 			$em->flush();
 
