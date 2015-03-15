@@ -31,6 +31,7 @@ class IpMac{
 
 	public function ban(User $u){
 		if(!preg_match(self::MAC_REGEX, $u->getMac())){
+			$this->loggerBan->info(sprintf('Updating mac "%s" for user %d', $u->getMac(), $u));
 			$u->setMac($this->getMac($u));
 		}
 		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
@@ -40,6 +41,7 @@ class IpMac{
 
 	public function unban(User $u){
 		if(!preg_match(self::MAC_REGEX, $u->getMac())){
+			$this->loggerBan->info(sprintf('Updating mac "%s" for user %d', $u->getMac(), $u));
 			$u->setMac($this->getMac($u));
 		}
 		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
