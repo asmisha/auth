@@ -52,7 +52,11 @@ class PaymentAdmin extends Admin{
 		}
 
 		$months = range(1, 12);
-		$years = range(date('Y') - 1, date('Y') + 1);
+		$years = array(
+			date('Y'),
+			date('Y') - 1,
+			date('Y') + 1,
+		);
 
 		$formMapper
 			->add('month', 'choice', array(
