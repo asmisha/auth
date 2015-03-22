@@ -140,6 +140,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 	 */
 	protected function configureDatagridFilters(DatagridMapper $filterMapper)
 	{
+		$hostels = range(1, 4);
 		$filterMapper
 			->add('id')
 			->add('username')
@@ -148,7 +149,10 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('ip')
 			->add('mac')
 			->add('banned')
-			->add('hostel', new HostelType())
+			->add('hostel', 'choice', array(
+				'choices' => array_combine($hostels, $hostels),
+				'translation_domain' => 'hostels'
+			))
 			->add('isAdmin')
 		;
 	}
