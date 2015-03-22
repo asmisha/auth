@@ -45,7 +45,6 @@ class BanCommand extends ContainerAwareCommand
 			}else{
 				$this->getContainer()->get('ipmac')->ban($u);
 			}
-
 			$u->setBanned(!$u->getBanned());
 		}
 
