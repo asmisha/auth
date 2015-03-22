@@ -76,6 +76,7 @@ services:
         class: Hostel\MainBundle\Services\LocalIpMac
         arguments:
             - @monolog.logger.ban.hostel1
+            - %hostel1_ip_regex%
 
     ipmac.hostel3:
         class: Hostel\MainBundle\Services\RemoteIpMac
@@ -83,6 +84,7 @@ services:
             - @monolog.logger.ban.hostel3
             - %hostel3_host%
             - %hostel3_port%
+            - %hostel3_ip_regex%
 
     ipmac.hostel4:
         class: Hostel\MainBundle\Services\RemoteIpMac
@@ -90,6 +92,7 @@ services:
             - @monolog.logger.ban.hostel4
             - %hostel4_host%
             - %hostel4_port%
+            - %hostel4_ip_regex%
 
     # authentication event listener
     security.authentication_event_listener:

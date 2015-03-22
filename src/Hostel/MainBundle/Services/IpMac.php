@@ -16,19 +16,35 @@ class IpMac{
 	private $loggerBan;
 	/** @var IpMacInterface[] */
 	private $clients;
-	
+	private $hostelRegex;
+
 	const MAC_REGEX = '#^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$#i';
 
-	function __construct($loggerBan, $clients)
+	function __construct($loggerBan, $clients, $hostelRegex)
 	{
 		$this->loggerBan = $loggerBan;
 		$this->clients = $clients;
+		$this->hostelRegex = $hostelRegex;
+	}
+
+	/**
+	 * @param $ip
+	 * @return IpMacInterface|null
+	 */
+	private function getClient($ip){
+		foreach($this->clients as $c){
+			if($c->matchIp($ip)){
+				return $c;
+			}
+		}
+
+		return null;
 	}
 
 	public function getMac(User $u)
 	{
-		if(isset($this->clients[$u->getHostel()])){
-			return $this->clients[$u->getHostel()]->getMacByIp($u->getIp());
+		if($client = $this->getClient($u->getIp())){
+			return $client->getMacByIp($u->getIp());
 		}else{
 			return null;
 		}
@@ -41,8 +57,8 @@ class IpMac{
 		}
 		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-		if(isset($this->clients[$u->getHostel()])){
-			$this->clients[$u->getHostel()]->banIpMac($u->getIp(), $u->getMac());
+		if($client = $this->getClient($u->getIp())){
+			$client->banIpMac($u->getIp(), $u->getMac());
 		}
 	}
 
@@ -53,14 +69,14 @@ class IpMac{
 		}
 		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
 
-		if(isset($this->clients[$u->getHostel()])){
-			$this->clients[$u->getHostel()]->unbanIpMac($u->getIp(), $u->getMac());
+		if($client = $this->getClient($u->getIp())){
+			$client->unbanIpMac($u->getIp(), $u->getMac());
 		}
 	}
 
-	public function banIpMac($hostel, $ip, $mac){
-		if(isset($this->clients[$hostel])){
-			$this->clients[$hostel]->banIpMac($ip, $mac);
+	public function banIpMac($ip, $mac){
+		if($client = $this->getClient($ip)){
+			$client->banIpMac($ip, $mac);
 		}
 	}
 

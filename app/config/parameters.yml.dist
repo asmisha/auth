@@ -28,6 +28,9 @@ parameters:
         2: "Минск, ул. Л. Беды, д. 4"
         3: "Минск, ул. Л. Беды, д. 2б"
         4: "Минск, ул. Дзержинского, д. 95"
+    hostel1_ip_regex: "/172\.31\.\d*\.\d*/"
+    hostel3_ip_regex: "/172\.30\.\d*\.\d*/"
+    hostel4_ip_regex: "/172\.19\.\d*\.\d*/"
 
     cost_monthly: 15000
     cost_connection: 70000

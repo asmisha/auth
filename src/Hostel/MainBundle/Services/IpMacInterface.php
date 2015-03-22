@@ -4,6 +4,8 @@ namespace Hostel\MainBundle\Services;
 
 interface IpMacInterface
 {
+	public function matchIp($ip);
+
 	public function getMacByIp($host);
 
 	public function banIpMac($ip, $mac);

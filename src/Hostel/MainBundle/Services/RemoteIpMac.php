@@ -8,6 +8,7 @@ class RemoteIpMac implements IpMacInterface{
 	private $address, $port, $sock;
 	/** @var Logger */
 	private $loggerBan;
+	private $hostelRegex;
 
 	private function connect(){
 		$this->disconnect();
@@ -56,11 +57,16 @@ class RemoteIpMac implements IpMacInterface{
 		}catch(\Exception $e){}
 	}
 
-	function __construct($loggerBan, $address, $port){
+	function __construct($loggerBan, $address, $port, $hostelRegex){
 		$this->loggerBan = $loggerBan;
 		$address = gethostbyname($address);
 		$this->address = $address;
 		$this->port = $port;
+		$this->hostelRegex = $hostelRegex;
+	}
+
+	public function matchIp($ip){
+		return preg_match($this->hostelRegex, $ip);
 	}
 
 	function __destruct(){

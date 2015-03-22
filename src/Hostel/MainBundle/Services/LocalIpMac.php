@@ -7,10 +7,16 @@ use Monolog\Logger;
 class LocalIpMac implements IpMacInterface{
 	/** @var Logger */
 	private $loggerBan;
+	private $hostelRegex;
 
-	function __construct($loggerBan)
+	function __construct($loggerBan, $hostelRegex)
 	{
 		$this->loggerBan = $loggerBan;
+		$this->hostelRegex = $hostelRegex;
+	}
+
+	public function matchIp($ip){
+		return preg_match($this->hostelRegex, $ip);
 	}
 
 	public function getMacByIp($host){

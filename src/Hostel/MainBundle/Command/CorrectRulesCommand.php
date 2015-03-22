@@ -81,7 +81,7 @@ class CorrectRulesCommand extends ContainerAwareCommand
 
 					$output->writeln(sprintf('Banning %s %s', $ip, $mac));
 
-					$ipmac->banIpMac($h, $ip, $mac);
+					$ipmac->banIpMac($ip, $mac);
 				}
 			}
 
