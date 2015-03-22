@@ -80,7 +80,11 @@ class IpMac{
 
 	public function listRules($hostel){
 		if(isset($this->clients[$hostel])){
-			return $this->clients[$hostel]->listRules();
+			$rules = $this->clients[$hostel]->listRules();
+			foreach($rules as $k=>$i){
+				$rules[$k] = strtoupper($i);
+			}
+			return $rules;
 		}else{
 			return array();
 		}
