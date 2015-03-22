@@ -16,15 +16,13 @@ class IpMac{
 	private $loggerBan;
 	/** @var IpMacInterface[] */
 	private $clients;
-	private $hostelRegex;
 
 	const MAC_REGEX = '#^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$#i';
 
-	function __construct($loggerBan, $clients, $hostelRegex)
+	function __construct($loggerBan, $clients)
 	{
 		$this->loggerBan = $loggerBan;
 		$this->clients = $clients;
-		$this->hostelRegex = $hostelRegex;
 	}
 
 	/**
