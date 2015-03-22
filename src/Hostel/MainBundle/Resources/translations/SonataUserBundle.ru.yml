@@ -13,6 +13,7 @@ filter.label_is_admin: Администратор
 filter.label_banned: Забанен
 filter.label_ip: IP
 filter.label_mac: MAC
+filter.label_hostel: Общежитие
 
 form.label_middlename: Отчество
 form.label_hostel: Общежитие

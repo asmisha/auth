@@ -148,6 +148,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('ip')
 			->add('mac')
 			->add('banned')
+			->add('hostel', new HostelType())
 			->add('isAdmin')
 		;
 	}
