@@ -149,7 +149,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin{
 			->add('ip')
 			->add('mac')
 			->add('banned')
-			->add('hostel', 'choice', array(
+			->add('hostel', 'doctrine_orm_choice', array(
 				'choices' => array_combine($hostels, $hostels),
 				'translation_domain' => 'hostels'
 			))
