@@ -17,7 +17,7 @@ class IpMac{
 	/** @var IpMacInterface[] */
 	private $clients;
 	
-	const MAC_REGEX = '#^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$#';
+	const MAC_REGEX = '#^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$#i';
 
 	function __construct($loggerBan, $clients)
 	{
@@ -36,7 +36,7 @@ class IpMac{
 
 	public function ban(User $u){
 		if(!preg_match(self::MAC_REGEX, $u->getMac())){
-			$this->loggerBan->info(sprintf('Updating mac "%s" for user %d', $u->getMac(), $u));
+			$this->loggerBan->info(sprintf('Updating mac "%s" for user %s', $u->getMac(), $u));
 			$u->setMac($this->getMac($u));
 		}
 		$this->loggerBan->info(sprintf('Banning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
@@ -48,7 +48,7 @@ class IpMac{
 
 	public function unban(User $u){
 		if(!preg_match(self::MAC_REGEX, $u->getMac())){
-			$this->loggerBan->info(sprintf('Updating mac "%s" for user %d', $u->getMac(), $u));
+			$this->loggerBan->info(sprintf('Updating mac "%s" for user %s', $u->getMac(), $u));
 			$u->setMac($this->getMac($u));
 		}
 		$this->loggerBan->info(sprintf('Unbanning user %d %s %s %s %s', $u->getId(), $u->getFirstname(), $u->getLastname(), $u->getIp(), $u->getMac()));
