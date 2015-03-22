@@ -42,7 +42,7 @@ class IpMac{
 	public function getMac(User $u)
 	{
 		if($client = $this->getClient($u->getIp())){
-			return $client->getMacByIp($u->getIp());
+			return strtoupper($client->getMacByIp($u->getIp()));
 		}else{
 			return null;
 		}
@@ -80,11 +80,7 @@ class IpMac{
 
 	public function listRules($hostel){
 		if(isset($this->clients[$hostel])){
-			$rules = $this->clients[$hostel]->listRules();
-			foreach($rules as $k=>$i){
-				$rules[$k] = strtoupper($i);
-			}
-			return $rules;
+			return $this->clients[$hostel]->listRules();
 		}else{
 			return array();
 		}
