@@ -490,6 +490,9 @@ class User extends BaseUser
      */
     public function setMac($mac)
     {
+	    if(!$mac){
+		    $mac = null;
+	    }
         $this->mac = $mac;
 
         return $this;
