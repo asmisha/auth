@@ -50,7 +50,6 @@ class CorrectRulesCommand extends ContainerAwareCommand
 				$output->writeln(sprintf('Updated mac for ip %s: %s', $u->getIp(), $u->getMac()));
 			}else{
 				$u
-					->setIp(null)
 					->setBanned(true)
 				;
 			}
