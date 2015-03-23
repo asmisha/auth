@@ -42,7 +42,7 @@ class IpMac{
 	public function getMac(User $u)
 	{
 		if($client = $this->getClient($u->getIp())){
-			return strtoupper($client->getMacByIp($u->getIp()));
+			return strtoupper(trim($client->getMacByIp($u->getIp())));
 		}else{
 			return null;
 		}
