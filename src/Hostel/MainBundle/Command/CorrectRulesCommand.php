@@ -47,6 +47,7 @@ class CorrectRulesCommand extends ContainerAwareCommand
 		foreach($users as $u){
 			if($mac = $ipmac->getMac($u)){
 				$u->setMac($mac);
+				$output->writeln(sprintf('Updated mac for ip %s: %s', $u->getIp(), $u->getMac()));
 			}else{
 				$u
 					->setIp(null)
