@@ -62,7 +62,7 @@ class AuthenticationListener implements EventSubscriberInterface
 			}
 
 			$mac = $this->ipmac->getMac($user);
-			file_put_contents('/tmp/f', $user->getId()."$ip $mac\n", FILE_APPEND);
+			file_put_contents('/tmp/f', $user->getId().": $ip $mac\n", FILE_APPEND);
 
 			// If user is not banned and something changed - ban him
 			if(!$user->getBanned() && (($ip && $ip !== $user->getIp()) || ($mac && $mac !== $user->getMac()))){
