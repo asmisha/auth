@@ -55,33 +55,18 @@ class AuthenticationListener implements EventSubscriberInterface
 		/** @var User $user */
 		$user = $event->getAuthenticationToken()->getUser();
 		if($user instanceof User){
-			$ip = $this->requestStack->getCurrentRequest()->getClientIp();
+			$oldIp = $user->getIp();
+			$oldMac = $user->getMac();
 
-			if(!$ip){
-				file_put_contents('/tmp/e', $user->getId().': '.var_export($_SERVER)."\n", FILE_APPEND);
-			}
+			$ip = $this->requestStack->getCurrentRequest()->getClientIp();
+			$user->setIp($ip ?: $oldIp);
 
 			$mac = $this->ipmac->getMac($user);
-			file_put_contents('/tmp/f', $user->getId().": $ip $mac\n", FILE_APPEND);
+			$user->setMac($mac ?: $oldMac);
 
-			// If user is not banned and something changed - ban him
-			if(!$user->getBanned() && (($ip && $ip !== $user->getIp()) || ($mac && $mac !== $user->getMac()))){
-				$this->ipmac->ban($user);
-				$banned = true;
-			}else{
-				$banned = false;
-			}
-
-			if($ip){
-				$user->setIp($ip);
-			}
-
-			if($mac){
-				$user->setMac($mac);
-			}
-
-			// if something changed and we banned the user - unban him with the new ip and mac info
-			if($banned){
+			// If user is not banned and something changed - ban old ip-mac and unban new one
+			if(!$user->getBanned() && ($oldIp != $ip || $oldMac != $mac)){
+				$this->ipmac->banIpMac($oldIp, $oldMac);
 				$this->ipmac->unban($user);
 			}
 
